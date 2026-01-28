@@ -1,8 +1,16 @@
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>uiouuoi</h1>
+      <div>
+      <Card>
+        <CardHeader>uioiuoi</CardHeader>
+        <CardContent>iuiuoiuio</CardContent>
+        <CardFooter>iiououoo</CardFooter>
+      </Card>
+      </div>
+      
     </div>
   );
 }
