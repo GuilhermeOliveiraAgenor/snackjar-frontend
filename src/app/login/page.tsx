@@ -1,4 +1,4 @@
-import LoginForm from "@/hook-form/login-form";
+import LoginForm from "@/modules/user/components/login-form";
 import { ChefHat, } from "lucide-react";
 import Image from "next/image";
 
