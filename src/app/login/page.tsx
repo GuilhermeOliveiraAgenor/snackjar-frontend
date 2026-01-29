@@ -1,5 +1,6 @@
 import LoginForm from "@/hook-form/login-form";
-import { ChefHat, GalleryVertical, GalleryVerticalEnd, LogIn, Utensils } from "lucide-react";
+import { ChefHat, } from "lucide-react";
+import Image from "next/image";
 
 export default function Login(){
     return (
@@ -22,9 +23,11 @@ export default function Login(){
             </div>
             {/*coluna 2*/}
             <div className="bg-muted relative hidden lg:block">
-                <img 
-                src="/"
+                <Image 
+                src="/Chef-pana.svg"
                 alt="Receitas"
+                width={100}
+                height={100}
                 className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                 />
             </div>
