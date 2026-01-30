@@ -3,7 +3,6 @@ import { ChefHat } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail } from "../ui/sidebar"
 import { NavUser } from "./profile"
 
-// This is sample data.
 const data = {
    user: {
     name: "Joao",
@@ -12,56 +11,49 @@ const data = {
   },
   navMain: [
     {
-      title: "Getting Started",
+      title: "Home",
       url: "#",
       items: [
         {
-          title: "Installation",
+          title: "Favoritas",
           url: "#",
         },
+        {
+          title: "Recentes",
+          url: "#"
+        },
+        {
+          title: "Rápidas (até 15 min)",
+          url: "#"
+        },
+        {
+          title: "Adicionar nova receita",
+          url: "#",
+        },
+
       ],
     },
     {
-      title: "Building Your Application",
+      title: "Categorias",
       url: "#",
       items: [
         {
-          title: "Routing",
+          title: "Doce",
           url: "#",
         },
         {
-          title: "Data Fetching",
-          url: "#",
-          isActive: true,
-        },
-      ],
-    },
-    {
-      title: "API Reference",
-      url: "#",
-      items: [
-        {
-          title: "Components",
+          title: "Salgado",
           url: "#",
         },
-      ],
-    },
-    {
-      title: "Architecture",
-      url: "#",
-      items: [
         {
-          title: "Accessibility",
+          title: "Almoço",
           url: "#",
         },
-      ],
-    },
-    {
-      title: "Community",
-      url: "#",
-      items: [
         {
-          title: "Contribution Guide",
+          title: "Jantar",
+          url: "#",
+        },{
+          title: "Café da manhã",
           url: "#",
         },
       ],
