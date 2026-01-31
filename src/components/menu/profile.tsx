@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
-import { BadgeCheck, Bell, ChevronsUpDown, CircleUserRound, CreditCard, LogOut, Settings, Sparkles } from "lucide-react";
+import { CircleUserRound, LogOut, Settings } from "lucide-react";
 
 export function NavUser({
     user,
