@@ -2,15 +2,23 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
-export default defineConfig([
- 
-  ...nextVitals,
+import prettier from "eslint-config-prettier";
+import prettierPlugin from "eslint-plugin-prettier";
 
- 
+export default defineConfig([
+  ...nextVitals,
   ...nextTs,
 
+  prettier,
+
   {
+    plugins: {
+      prettier: prettierPlugin,
+    },
+
     rules: {
+      "prettier/prettier": "warn",
+
       "no-console": ["warn", { allow: ["warn", "error"] }],
 
       "@typescript-eslint/no-unused-vars": [
@@ -26,7 +34,7 @@ export default defineConfig([
       "react/jsx-key": "error",
       "react-hooks/exhaustive-deps": "warn",
 
-      "eqeqeq": ["error", "always"],
+      eqeqeq: ["error", "always"],
       "prefer-const": "error",
       "no-var": "error",
 

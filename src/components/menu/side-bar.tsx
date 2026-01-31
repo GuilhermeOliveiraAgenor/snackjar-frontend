@@ -1,10 +1,23 @@
-import * as React from "react"
-import { ChefHat, Plus } from "lucide-react"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail } from "../ui/sidebar"
-import { NavUser } from "./profile"
+import * as React from "react";
+import { ChefHat, Plus } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+} from "../ui/sidebar";
+import { NavUser } from "./profile";
 
 const data = {
-   user: {
+  user: {
     name: "Joao",
     email: "joao@gmail.com",
     avatar: "/avatars/shadcn.jpg",
@@ -20,18 +33,17 @@ const data = {
         },
         {
           title: "Recentes",
-          url: "#"
+          url: "#",
         },
         {
           title: "Rápidas (até 15 min)",
-          url: "#"
+          url: "#",
         },
         {
           title: "Adicionar nova receita",
           url: "#",
-          icon: Plus
+          icon: Plus,
         },
-
       ],
     },
     {
@@ -53,14 +65,15 @@ const data = {
         {
           title: "Jantar",
           url: "#",
-        },{
+        },
+        {
           title: "Café da manhã",
           url: "#",
         },
       ],
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -97,16 +110,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {item.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
                         <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a
-  href={item.url}
-  className="flex items-center w-full"
->
-  <span>{item.title}</span>
+                          <a href={item.url} className="flex items-center w-full">
+                            <span>{item.title}</span>
 
-  {item.icon && <item.icon />}
-</a>
-
-
+                            {item.icon && <item.icon />}
+                          </a>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
@@ -122,5 +130,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

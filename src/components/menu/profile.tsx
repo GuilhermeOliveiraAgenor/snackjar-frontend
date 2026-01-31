@@ -1,23 +1,29 @@
-"use client"
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { CircleUserRound, LogOut, Settings } from "lucide-react";
 
 export function NavUser({
-    user,
+  user,
 }: {
-    user: {
-        name: string,
-        email: string,
-        avatar: string
-    }
-}){
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
+}) {
+  const { isMobile } = useSidebar();
 
-const { isMobile } = useSidebar()
-
-return(
+  return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
@@ -45,18 +51,18 @@ return(
           >
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CircleUserRound/>
+                <CircleUserRound />
                 Conta
               </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Sair
-            </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <LogOut />
+                Sair
+              </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-)
+  );
 }

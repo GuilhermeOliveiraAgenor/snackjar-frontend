@@ -1,0 +1,9 @@
+.next
+dist
+build
+out
+
+node_modules
+
+coverage
+src/components/ui
