@@ -45,10 +45,7 @@ export default function Page() {
             <h1>SNACK JAR</h1>
           </div>
         </header>
-        <div
-          className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5
-transition"
-        >
+        <div className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5 transition">
           <Input
             className="
       w-full
@@ -56,14 +53,13 @@ transition"
       md:max-w-md
       lg:max-w-lg
       bg-white
-      h-10
-    "
-            placeholder="O que vamos cozinhar hoje?"
+      h-10 "
+            placeholder="O que vamos cozinhar hoje ?"
           />
 
           <Search className="text-white w-9 h-9 ml-3" />
         </div>
-        <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-8">
+        <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
           {cards.map((card) => (
             <CardSmall
               key={card.id}

@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Clock, Heart, Star } from "lucide-react";
+import { Clock, Heart } from "lucide-react";
 
 interface CardSmallProps {
   title: string;
