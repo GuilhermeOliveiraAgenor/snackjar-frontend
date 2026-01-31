@@ -8,24 +8,33 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export function CardSmall() {
+interface CardSmallProps {
+  title: string
+  preparationTime: string
+  description: string
+}
+
+export function CardSmall({
+  title,
+  preparationTime,
+  description,
+}: CardSmallProps) {
   return (
     <Card size="sm" className="mx-auto w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Small Card</CardTitle>
+        <CardTitle>{title}</CardTitle>
         <CardDescription>
-          This card uses the small size variant.
+          Tempo de preparo: {preparationTime}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <p>
-          The card component supports a size prop that can be set to
-          &quot;sm&quot; for a more compact appearance.
+          {description}
         </p>
       </CardContent>
       <CardFooter>
         <Button variant="outline" size="sm" className="w-full">
-          Action
+          Ver detalhes
         </Button>
       </CardFooter>
     </Card>
