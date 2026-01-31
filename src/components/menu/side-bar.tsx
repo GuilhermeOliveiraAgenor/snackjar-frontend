@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChefHat } from "lucide-react"
+import { ChefHat, Plus } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail } from "../ui/sidebar"
 import { NavUser } from "./profile"
 
@@ -29,6 +29,7 @@ const data = {
         {
           title: "Adicionar nova receita",
           url: "#",
+          icon: Plus
         },
 
       ],
@@ -96,7 +97,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {item.items.map((item) => (
                       <SidebarMenuSubItem key={item.title}>
                         <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
+                          <a
+  href={item.url}
+  className="flex items-center w-full"
+>
+  <span>{item.title}</span>
+
+  {item.icon && <item.icon />}
+</a>
+
+
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
