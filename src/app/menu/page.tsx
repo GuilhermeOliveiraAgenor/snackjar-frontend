@@ -14,7 +14,7 @@ import { Search } from "lucide-react"
 const cards = [
   {
     id: 1,
-    title: "Receitas",
+    title: "Receitas iouiuiouiooooouiiiiiiuiiiiiiiooooooo",
     preparationTime: "1 hora",
     description: "Veja e edite suas receitas favoritas.",
   },

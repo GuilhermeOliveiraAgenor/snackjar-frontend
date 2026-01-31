@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Clock, Heart, Star } from "lucide-react"
 
 interface CardSmallProps {
   title: string
@@ -22,10 +23,22 @@ export function CardSmall({
   return (
     <Card size="sm" className="mx-auto w-full max-w-sm">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>
-          Tempo de preparo: {preparationTime}
-        </CardDescription>
+         <div className="relative flex items-center w-full pr-10 overflow-hidden">
+  <CardTitle className="truncate min-w-0 max-w-full py-1">
+    {title}
+  </CardTitle>
+
+  <button className="absolute top-0 right-2 gap-2">
+    <Heart className="w-6 h-6 text-muted-foreground fill-transparent hover:fill-red-500 hover:text-red-500 transition" />
+  </button>
+</div>
+
+        <div className="flex flex-1">
+  <CardDescription className="flex items-center gap-1">
+    <Clock className="w-4 h-4 stroke-[2.5]" />
+    <span>{preparationTime}</span>
+  </CardDescription>
+</div>
       </CardHeader>
       <CardContent>
         <p>
