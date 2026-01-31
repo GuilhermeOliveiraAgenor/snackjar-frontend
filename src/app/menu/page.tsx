@@ -28,7 +28,7 @@ const cards = [
     id: 3,
     title: "Pudim de leite",
     preparationTime: "1h:30 ",
-    description: "Veja o que você pesquisou.",
+    description: "Receita de pudim",
   },
 ]
 
