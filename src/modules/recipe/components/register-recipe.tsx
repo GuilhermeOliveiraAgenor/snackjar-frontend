@@ -25,26 +25,39 @@ export default function RegisterRecipe() {
                             </FieldLabel>
                             <Input id="title" placeholder="Bolo de Cenoura" required/>
                         </Field>
-                        
                         <Field>
                             <FieldLabel htmlFor="description">
                                 Descrição
                             </FieldLabel>
-
                             <Textarea
                                 placeholder="A receita da Vovó"
                                 maxLength={80}
                                 onChange={(e) => setText(e.target.value)}
                                 className="resize-none"
                             />
-
-                            {/* Contador abaixo à direita */}
                             <div className="flex justify-end">
                                 <span className="text-xs">
                                 {text.length}/80
                                 </span>
                             </div>
-                            </Field>
+                        </Field>
+                        <Field className="-mt-7">
+                            <FieldLabel htmlFor="preparationTime" >Tempo de preparo</FieldLabel>
+                            <div className="flex items-center gap-2">
+    <Input
+      type="number"
+      id="preparationTime"
+      placeholder="45"
+      min={1}
+      max={600}
+      className="w-32"
+    />
+
+    <span className="text-sm text-muted-foreground">
+      min
+    </span>
+  </div>
+                        </Field>
                     </FieldGroup>
                 </FieldSet>
             </FieldGroup>
