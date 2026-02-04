@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { TimeInput } from "@/components/recipe/input-time";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 
@@ -44,18 +45,7 @@ export default function RegisterRecipe() {
                         <Field className="-mt-7">
                             <FieldLabel htmlFor="preparationTime" >Tempo de preparo</FieldLabel>
                             <div className="flex items-center gap-2">
-    <Input
-      type="number"
-      id="preparationTime"
-      placeholder="45"
-      min={1}
-      max={600}
-      className="w-32"
-    />
-
-    <span className="text-sm text-muted-foreground">
-      min
-    </span>
+        <TimeInput/>
   </div>
                         </Field>
                     </FieldGroup>

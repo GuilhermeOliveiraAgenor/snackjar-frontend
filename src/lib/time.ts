@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 
-export function TimeInput() {
-    const [value, setValue] = useState("");
-  
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+export function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const [value, setValue] = useState("");
+
       let v = e.target.value.replace(/\D/g, "");
   
       if (v.length >= 3) {
@@ -13,5 +12,4 @@ export function TimeInput() {
       }
   
       setValue(v.slice(0, 5));
-    }
 }
