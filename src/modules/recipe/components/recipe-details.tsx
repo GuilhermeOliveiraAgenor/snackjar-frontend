@@ -5,7 +5,7 @@ export default function RecipeDetails() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start gap-12 p-8">
       <Card className="w-full max-w-5xl text-center shadow-lg">
-        <CardHeader className="space-y-2 py-8">
+        <CardHeader className="space-y- py-8">
           <CardTitle className="text-4xl font-bold">Bolo de Laranja 🍊</CardTitle>
           <p>Tempo de preparo: 60 min</p>
           <p className="text-xl text-muted-foreground">Receita simples, fofinha e caseira</p>
