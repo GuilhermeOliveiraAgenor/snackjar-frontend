@@ -35,6 +35,8 @@ const categories = ["Doce", "Salgado", "Almoço", "Jantar", "Café da Manhã"] a
 export default function RegisterRecipe() {
   const [text, setText] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
+  const [unit, setUnit] = useState("G")
+  const [amount, setAmount] = useState("")
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
@@ -47,8 +49,6 @@ export default function RegisterRecipe() {
           <form>
             <FieldGroup>
               <FieldSet>
-                <FieldDescription>Digite as informações abaixo</FieldDescription>
-
                 <FieldGroup>
                   <Field>
                     <FieldLabel htmlFor="title">Título</FieldLabel>
@@ -88,7 +88,6 @@ export default function RegisterRecipe() {
                         }}
                         required
                       />
-
                       <p className="text-sm text-muted-foreground">minutos</p>
                     </div>
                   </Field>
@@ -97,7 +96,7 @@ export default function RegisterRecipe() {
                     <FieldLabel>Categoria</FieldLabel>
 
                     <Combobox items={categories}>
-                      <ComboboxInput placeholder="Seleciona a categoria" />
+                      <ComboboxInput placeholder="Selecione a categoria" />
 
                       <ComboboxContent className="min-w-[var(--radix-popover-trigger-width)]">
                         <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
@@ -113,34 +112,43 @@ export default function RegisterRecipe() {
                     </Combobox>
                     <FieldSeparator />
                   </Field>
-                  <Field>
-                    <FieldLabel htmlFor="title">Ingrediente</FieldLabel>
+                    <Field>
+                    <FieldLabel htmlFor="title">Ingredientes</FieldLabel>
                     <div className="flex flex-1">
-                      <Input id="title" placeholder="Farinha" required />
+                      <Input type="text" maxLength={40} id="title" placeholder="Farinha" required />
                       <Input
-                        id="title"
-                        placeholder="2 xícaras"
+                        type="text"
+                        id="amount"
+                        maxLength={4}
+                        value={amount}
+                        placeholder="200"
+                        inputMode="numeric"
+                        onChange={(e) => {
+                            let v = e.target.value.replace(/\D/g, "");
+                            v = v.slice(0, 4);
+                            setAmount(v);
+                          }}
                         required
                         className="ml-2 w-26 text-center"
                       />
-                      <Select defaultValue="01">
+                      <Select value={unit} onValueChange={setUnit}>
                         <SelectTrigger id="unit" className="ml-2 w-36">
                           <SelectValue placeholder="G" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Unidade de Medida</SelectLabel>
-                            <SelectItem value="01">g</SelectItem>
-                            <SelectItem value="02">kg</SelectItem>
-                            <SelectItem value="03">ml</SelectItem>
-                            <SelectItem value="04">l</SelectItem>
-                            <SelectItem value="05">Colher de Sopa</SelectItem>
-                            <SelectItem value="06">Colher de Chá</SelectItem>
-                            <SelectItem value="07">Colher</SelectItem>
-                            <SelectItem value="08">Xícara</SelectItem>
-                            <SelectItem value="09">un</SelectItem>
-                            <SelectItem value="10">Pitada</SelectItem>
-                            <SelectItem value="11">mg</SelectItem>
+                            <SelectItem value="G">g</SelectItem>
+                            <SelectItem value="KG">kg</SelectItem>
+                            <SelectItem value="ML">ml</SelectItem>
+                            <SelectItem value="L">l</SelectItem>
+                            <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
+                            <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
+                            <SelectItem value="COLHER">Colher</SelectItem>
+                            <SelectItem value="XICARA">Xícara</SelectItem>
+                            <SelectItem value="UN">un</SelectItem>
+                            <SelectItem value="PITADA">Pitada</SelectItem>
+                            <SelectItem value="MG">mg</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
