@@ -47,8 +47,17 @@ export default function RegisterRecipe() {
         unit: string;
     }
 
+    type Step = {
+        step: number;
+        description: string;
+    }
+
     const [ingredients, setIngredients] = useState<Ingredient[]>([
         {name: "", amount: "", unit: ""}
+    ])
+
+    const [steps, setSteps] = useState<Step[]>([
+        {step: 0, description: ""}
     ])
 
     function addIngredient(){
@@ -60,6 +69,19 @@ export default function RegisterRecipe() {
 
     function removeIngredient(index: number){
         setIngredients((prev) => 
+            prev.filter((_, i) => i !== index)
+        )
+    }
+
+    function addSteps(){
+        setSteps((prev) => [
+            ...prev,
+            {step: 0, description: ""}
+        ])
+    }
+
+    function removeStep(index: number){
+        setSteps((prev) => 
             prev.filter((_, i) => i !== index)
         )
     }
@@ -147,7 +169,6 @@ export default function RegisterRecipe() {
     key={index}
     className="flex items-center gap-2 w-full"
   >
-    {/* Nome */}
     <Input
       type="text"
       maxLength={40}
@@ -162,7 +183,6 @@ export default function RegisterRecipe() {
       className="flex-[3]"
     />
 
-    {/* Quantidade */}
     <Input
       type="text"
       inputMode="numeric"
@@ -180,7 +200,6 @@ export default function RegisterRecipe() {
       className="w-16 sm:w-20 text-center"
     />
 
-    {/* Unidade */}
     <Select
       value={item.unit}
       onValueChange={(v) => {
@@ -211,7 +230,6 @@ export default function RegisterRecipe() {
       </SelectContent>
     </Select>
 
-    {/* Remover */}
     {ingredients.length > 1 && (
       <Button
         type="button"
@@ -232,8 +250,60 @@ export default function RegisterRecipe() {
                     </Button>
                     </div>
                     </Field>
+                    <FieldSeparator />
                     <Field>
+                    <FieldLabel>Modo de preparo</FieldLabel>
 
+                    <div className="space-y-2">
+
+                    {steps.map((item, index) => (
+  <div key={index} className="flex items-center gap-2 w-full">
+    <Input
+     type="text"
+     inputMode="numeric"
+     placeholder="1"
+     value={item.step}
+     onChange={(e) => {
+       let v = e.target.value.replace(/\D/g, "");
+       v = v.slice(0, 4);
+       const list = [...steps];
+       list[index].step = v;
+       setSteps(list);
+     }}
+     required
+      className="w-16 sm:w-20 text-center"
+    />
+
+    <Input
+      type="text"
+      placeholder="Jogue na bandeja"
+      value={item.description}
+      onChange={(e) => {
+        const list = [...steps];
+        list[index].description = v;
+        setSteps(list);
+      }}
+      required
+    />
+    {steps.length > 1 && (
+      <Button
+        type="button"
+        onClick={() => removeStep(index)}
+        variant="ghost"
+        size="icon"
+        className="text-destructive p-0 w-4"
+        >
+        <Trash2 size={22} />
+      </Button>
+    )}
+  </div>
+))}
+
+                    <Button type="button" onClick={addSteps} className="mt-8">
+                    Adicionar Etapa       
+                    <Plus size={32} />
+                    </Button>
+                    </div>
                     </Field>
                 </FieldGroup>
               </FieldSet>
