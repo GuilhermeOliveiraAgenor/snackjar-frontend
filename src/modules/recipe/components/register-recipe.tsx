@@ -106,7 +106,6 @@ export default function RegisterRecipe() {
                         className="w-32"
                         placeholder="60"
                         inputMode="numeric"
-                        maxLength={3}
                         value={preparationTime}
                         onChange={(e) => {
                           const numeric = e.target.value.replace(/\D/g, "");
@@ -139,92 +138,103 @@ export default function RegisterRecipe() {
                     <FieldSeparator />
                   </Field>
                   <Field>
-  <FieldLabel>Ingredientes</FieldLabel>
+                    <FieldLabel>Ingredientes</FieldLabel>
 
-  <div className="space-y-2">
+                    <div className="space-y-2">
 
-    {ingredients.map((item, index) => (
-      <div
-        key={index}
-        className="flex items-end gap-2"
-      >
-        <Input
-          type="text"
-          maxLength={40}
-          placeholder="Farinha"
-          value={item.name}
-          onChange={(e) => {
-            const list = [...ingredients];
-            list[index].name = e.target.value;
-            setIngredients(list);
-          }}
-          required
-          className="flex-1"
-        />
+                    {ingredients.map((item, index) => (
+  <div
+    key={index}
+    className="flex items-center gap-2 w-full"
+  >
+    {/* Nome */}
+    <Input
+      type="text"
+      maxLength={40}
+      placeholder="Farinha"
+      value={item.name}
+      onChange={(e) => {
+        const list = [...ingredients];
+        list[index].name = e.target.value;
+        setIngredients(list);
+      }}
+      required
+      className="flex-[3]"
+    />
 
-        <Input
-          type="text"
-          inputMode="numeric"
-          placeholder="200"
-          value={item.amount}
-          onChange={(e) => {
-            let v = e.target.value.replace(/\D/g, "");
-            v = v.slice(0, 4);
+    {/* Quantidade */}
+    <Input
+      type="text"
+      inputMode="numeric"
+      placeholder="200"
+      value={item.amount}
+      onChange={(e) => {
+        let v = e.target.value.replace(/\D/g, "");
+        v = v.slice(0, 4);
 
-            const list = [...ingredients];
-            list[index].amount = v;
-            setIngredients(list);
-          }}
-          required
-          className="w-24 text-center"
-        />
+        const list = [...ingredients];
+        list[index].amount = v;
+        setIngredients(list);
+      }}
+      required
+      className="w-16 sm:w-20 text-center"
+    />
 
-        <Select
-          value={item.unit}
-          onValueChange={(v) => {
-            const list = [...ingredients];
-            list[index].unit = v;
-            setIngredients(list);
-          }}
+    {/* Unidade */}
+    <Select
+      value={item.unit}
+      onValueChange={(v) => {
+        const list = [...ingredients];
+        list[index].unit = v;
+        setIngredients(list);
+      }}
+    >
+      <SelectTrigger className="w-20 sm:w-24">
+        <SelectValue />
+      </SelectTrigger>
+
+      <SelectContent>
+        <SelectGroup>
+        <SelectLabel>Unidade de Medida</SelectLabel>
+                            <SelectItem value="G">g</SelectItem>
+                            <SelectItem value="KG">kg</SelectItem>
+                            <SelectItem value="ML">ml</SelectItem>
+                            <SelectItem value="L">l</SelectItem>
+                            <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
+                            <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
+                            <SelectItem value="COLHER">Colher</SelectItem>
+                            <SelectItem value="XICARA">Xícara</SelectItem>
+                            <SelectItem value="UN">un</SelectItem>
+                            <SelectItem value="PITADA">Pitada</SelectItem>
+                            <SelectItem value="MG">mg</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+    {/* Remover */}
+    {ingredients.length > 1 && (
+      <Button
+        type="button"
+        onClick={() => removeIngredient(index)}
+        variant="ghost"
+        size="icon"
+        className="text-destructive p-0 w-4"
         >
-          <SelectTrigger className="w-32">
-            <SelectValue />
-          </SelectTrigger>
-
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Unidade</SelectLabel>
-
-              <SelectItem value="G">g</SelectItem>
-              <SelectItem value="KG">kg</SelectItem>
-              <SelectItem value="ML">ml</SelectItem>
-              <SelectItem value="L">l</SelectItem>
-              <SelectItem value="UN">un</SelectItem>
-              <SelectItem value="PITADA">Pitada</SelectItem>
-              <SelectItem value="MG">mg</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        {ingredients.length > 1 && (
-          <Button
-            type="button"
-            onClick={() => removeIngredient(index)}
-            className="text-sm text-destructive bg-white hover:bg-transparent"
-          >
-            <Trash2 size={24} />
-          </Button>
-        )}
-      </div>
-    ))}
-
-    <Button type="button" onClick={addIngredient} className="mt-8">
-    Adicionar Ingrediente       
-      <Plus size={32} />
-    </Button>
-
+        <Trash2 size={22} />
+      </Button>
+    )}
   </div>
-</Field>
+))}
 
+                    <Button type="button" onClick={addIngredient} className="mt-8">
+                    Adicionar Ingrediente       
+                    <Plus size={32} />
+                    </Button>
+                    </div>
+                    </Field>
+                    <Field>
+
+                    </Field>
                 </FieldGroup>
               </FieldSet>
             </FieldGroup>
