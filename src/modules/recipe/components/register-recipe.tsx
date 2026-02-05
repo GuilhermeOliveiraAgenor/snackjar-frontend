@@ -18,6 +18,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Plus, Trash2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -29,14 +30,39 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const categories = ["Doce", "Salgado", "Almoço", "Jantar", "Café da Manhã"] as const;
+
 
 export default function RegisterRecipe() {
   const [text, setText] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
   const [unit, setUnit] = useState("G")
   const [amount, setAmount] = useState("")
+    
+    type Ingredient ={
+        name: string;
+        amount: string;
+        unit: string;
+    }
+
+    const [ingredients, setIngredients] = useState<Ingredient[]>([
+        {name: "", amount: "", unit: ""}
+    ])
+
+    function addIngredient(){
+        setIngredients((prev) => [
+            ...prev,
+            {name: "", amount: "", unit: "G"}
+        ])
+    }
+
+    function removeIngredient(index: number){
+        setIngredients((prev) => 
+            prev.filter((_, i) => i !== index)
+        )
+    }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
@@ -112,48 +138,93 @@ export default function RegisterRecipe() {
                     </Combobox>
                     <FieldSeparator />
                   </Field>
-                    <Field>
-                    <FieldLabel htmlFor="title">Ingredientes</FieldLabel>
-                    <div className="flex flex-1">
-                      <Input type="text" maxLength={40} id="title" placeholder="Farinha" required />
-                      <Input
-                        type="text"
-                        id="amount"
-                        maxLength={4}
-                        value={amount}
-                        placeholder="200"
-                        inputMode="numeric"
-                        onChange={(e) => {
-                            let v = e.target.value.replace(/\D/g, "");
-                            v = v.slice(0, 4);
-                            setAmount(v);
-                          }}
-                        required
-                        className="ml-2 w-26 text-center"
-                      />
-                      <Select value={unit} onValueChange={setUnit}>
-                        <SelectTrigger id="unit" className="ml-2 w-36">
-                          <SelectValue placeholder="G" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Unidade de Medida</SelectLabel>
-                            <SelectItem value="G">g</SelectItem>
-                            <SelectItem value="KG">kg</SelectItem>
-                            <SelectItem value="ML">ml</SelectItem>
-                            <SelectItem value="L">l</SelectItem>
-                            <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
-                            <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
-                            <SelectItem value="COLHER">Colher</SelectItem>
-                            <SelectItem value="XICARA">Xícara</SelectItem>
-                            <SelectItem value="UN">un</SelectItem>
-                            <SelectItem value="PITADA">Pitada</SelectItem>
-                            <SelectItem value="MG">mg</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </Field>
+                  <Field>
+  <FieldLabel>Ingredientes</FieldLabel>
+
+  <div className="space-y-2">
+
+    {ingredients.map((item, index) => (
+      <div
+        key={index}
+        className="flex items-end gap-2"
+      >
+        <Input
+          type="text"
+          maxLength={40}
+          placeholder="Farinha"
+          value={item.name}
+          onChange={(e) => {
+            const list = [...ingredients];
+            list[index].name = e.target.value;
+            setIngredients(list);
+          }}
+          required
+          className="flex-1"
+        />
+
+        <Input
+          type="text"
+          inputMode="numeric"
+          placeholder="200"
+          value={item.amount}
+          onChange={(e) => {
+            let v = e.target.value.replace(/\D/g, "");
+            v = v.slice(0, 4);
+
+            const list = [...ingredients];
+            list[index].amount = v;
+            setIngredients(list);
+          }}
+          required
+          className="w-24 text-center"
+        />
+
+        <Select
+          value={item.unit}
+          onValueChange={(v) => {
+            const list = [...ingredients];
+            list[index].unit = v;
+            setIngredients(list);
+          }}
+        >
+          <SelectTrigger className="w-32">
+            <SelectValue />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Unidade</SelectLabel>
+
+              <SelectItem value="G">g</SelectItem>
+              <SelectItem value="KG">kg</SelectItem>
+              <SelectItem value="ML">ml</SelectItem>
+              <SelectItem value="L">l</SelectItem>
+              <SelectItem value="UN">un</SelectItem>
+              <SelectItem value="PITADA">Pitada</SelectItem>
+              <SelectItem value="MG">mg</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        {ingredients.length > 1 && (
+          <Button
+            type="button"
+            onClick={() => removeIngredient(index)}
+            className="text-sm text-destructive bg-white hover:bg-transparent"
+          >
+            <Trash2 size={24} />
+          </Button>
+        )}
+      </div>
+    ))}
+
+    <Button type="button" onClick={addIngredient} className="mt-8">
+    Adicionar Ingrediente       
+      <Plus size={32} />
+    </Button>
+
+  </div>
+</Field>
+
                 </FieldGroup>
               </FieldSet>
             </FieldGroup>
