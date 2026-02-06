@@ -132,26 +132,27 @@ export default function RegisterRecipe() {
                     <FieldLabel>Categoria</FieldLabel>
 
                     <Combobox items={categories}>
-                      <ComboboxInput placeholder="Selecione a categoria" />
+  <ComboboxInput placeholder="Selecione a categoria" required />
 
-                      <ComboboxContent className="min-w-[var(--radix-popover-trigger-width)]">
-                        <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+  <ComboboxContent className="w-[var(--radix-popover-trigger-width)]">
+    <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
 
-                        <ComboboxList>
-                          {(item) => (
-                            <ComboboxItem key={item} value={item}>
-                              {item}
-                            </ComboboxItem>
-                          )}
-                        </ComboboxList>
-                      </ComboboxContent>
-                    </Combobox>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item} value={item}>
+          {item}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+
                     <FieldSeparator />
                   </Field>
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
-  <div className="flex-[3]">Ingrediente</div>
+  <div className="flex-[3]">Nome</div>
   <div className="w-16 sm:w-20 text-center">Qtd</div>
   <div className="w-20 sm:w-24 text-center">Unidade</div>
 </div>
