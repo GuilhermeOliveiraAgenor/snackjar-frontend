@@ -9,14 +9,7 @@ import {
   ComboboxList,
   ComboboxItem,
 } from "@/components/ui/combobox";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSeparator,
-  FieldSet,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel, FieldSeparator, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Plus, Trash2 } from "lucide-react";
 import {
@@ -31,66 +24,56 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { type } from "os";
 
 const categories = ["Doce", "Salgado", "Almoço", "Jantar", "Café da Manhã"] as const;
-
 
 export default function RegisterRecipe() {
   const [text, setText] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
-  const [unit, setUnit] = useState("G")
-  const [amount, setAmount] = useState("")
-    
-    type Ingredient ={
-        name: string;
-        amount: string;
-        unit: string;
-    }
 
-    type Step = {
-        step: number;
-        description: string;
-    }
+  type Ingredient = {
+    name: string;
+    amount: string;
+    unit: string;
+  };
 
-    const [ingredients, setIngredients] = useState<Ingredient[]>([
-        {name: "", amount: "", unit: ""}
-    ])
+  type Step = {
+    step: number;
+    description: string;
+  };
 
-    const [steps, setSteps] = useState<Step[]>([
-        {step: 0, description: ""}
-    ])
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    { name: "", amount: "", unit: "G" },
+  ]);
 
-    function addIngredient(){
-        setIngredients((prev) => [
-            ...prev,
-            {name: "", amount: "", unit: "G"}
-        ])
-    }
+  const [steps, setSteps] = useState<Step[]>([{ step: 1, description: "" }]);
 
-    function removeIngredient(index: number){
-        setIngredients((prev) => 
-            prev.filter((_, i) => i !== index)
-        )
-    }
+  function addIngredient() {
+    setIngredients((prev) => [...prev, { name: "", amount: "", unit: "G" }]);
+  }
 
-    function addSteps(){
-        setSteps((prev) => [
-            ...prev,
-            {step: 0, description: ""}
-        ])
-    }
+  function removeIngredient(index: number) {
+    setIngredients((prev) => prev.filter((_, i) => i !== index));
+  }
 
-    function removeStep(index: number){
-        setSteps((prev) => 
-            prev.filter((_, i) => i !== index)
-        )
-    }
+  function addSteps() {
+    setSteps((prev) => {
+      const nextStep = prev.length > 0 ? prev[prev.length - 1].step + 1 : 1;
+
+      return [...prev, { step: nextStep, description: "" }];
+    });
+  }
+
+  function removeStep(index: number) {
+    setSteps((prev) => prev.filter((_, i) => i !== index));
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
       <Card className="w-full max-w-2xl shadow-lg">
         <CardHeader>
-          <CardTitle className="text-center">Cadastrar Receita</CardTitle>
+          <CardTitle className="text-center text-2xl">Cadastrar Receita</CardTitle>
         </CardHeader>
 
         <CardContent>
@@ -161,150 +144,146 @@ export default function RegisterRecipe() {
                   </Field>
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
+                    <div className="space-y-2">
+                      {ingredients.map((item, index) => (
+                        <div key={index} className="flex items-center gap-2 w-full">
+                          <Input
+                            type="text"
+                            maxLength={40}
+                            placeholder="Farinha"
+                            value={item.name}
+                            onChange={(e) => {
+                              const list = [...ingredients];
+                              list[index].name = e.target.value;
+                              setIngredients(list);
+                            }}
+                            required
+                            className="flex-[3]"
+                          />
+
+                          <Input
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="200"
+                            value={item.amount}
+                            onChange={(e) => {
+                              let v = e.target.value.replace(/\D/g, "");
+                              v = v.slice(0, 4);
+
+                              const list = [...ingredients];
+                              list[index].amount = v;
+                              setIngredients(list);
+                            }}
+                            required
+                            className="w-16 sm:w-20 text-center"
+                          />
+
+                          <Select
+                            value={item.unit}
+                            onValueChange={(v) => {
+                              const list = [...ingredients];
+                              list[index].unit = v;
+                              setIngredients(list);
+                            }}
+                          >
+                            <SelectTrigger className="w-20 sm:w-24">
+                              <SelectValue />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Unidade de Medida</SelectLabel>
+                                <SelectItem value="G">g</SelectItem>
+                                <SelectItem value="KG">kg</SelectItem>
+                                <SelectItem value="ML">ml</SelectItem>
+                                <SelectItem value="L">l</SelectItem>
+                                <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
+                                <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
+                                <SelectItem value="COLHER">Colher</SelectItem>
+                                <SelectItem value="XICARA">Xícara</SelectItem>
+                                <SelectItem value="UN">un</SelectItem>
+                                <SelectItem value="PITADA">Pitada</SelectItem>
+                                <SelectItem value="MG">mg</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+
+                          {ingredients.length > 1 && (
+                            <Button
+                              type="button"
+                              onClick={() => removeIngredient(index)}
+                              variant="ghost"
+                              size="icon"
+                              className="text-destructive p-0 w-4"
+                            >
+                              <Trash2 size={22} />
+                            </Button>
+                          )}
+                        </div>
+                      ))}
+
+                      <Button type="button" onClick={addIngredient} className="mt-8">
+                        Adicionar Ingrediente
+                        <Plus size={32} />
+                      </Button>
+                    </div>
+                  </Field>
+                  <FieldSeparator />
+                  <Field>
+                    <FieldLabel>Modo de Preparo</FieldLabel>
 
                     <div className="space-y-2">
+                      {steps.map((item, index) => (
+                        <div key={index} className="flex items-center gap-2 w-full">
+                          <Input
+                            type="text"
+                            inputMode="numeric"
+                            placeholder="1"
+                            value={item.step}
+                            readOnly
+                            className="w-16 sm:w-20 text-center"
+                          />
 
-                    {ingredients.map((item, index) => (
-  <div
-    key={index}
-    className="flex items-center gap-2 w-full"
-  >
-    <Input
-      type="text"
-      maxLength={40}
-      placeholder="Farinha"
-      value={item.name}
-      onChange={(e) => {
-        const list = [...ingredients];
-        list[index].name = e.target.value;
-        setIngredients(list);
-      }}
-      required
-      className="flex-[3]"
-    />
+                          <Input
+                            type="text"
+                            placeholder="Jogue na bandeja"
+                            value={item.description}
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              const list = [...steps];
+                              list[index].description = v;
+                              setSteps(list);
+                            }}
+                            required
+                          />
+                          {steps.length > 1 && (
+                            <Button
+                              type="button"
+                              onClick={() => removeStep(index)}
+                              variant="ghost"
+                              size="icon"
+                              className="text-destructive p-0 w-4"
+                            >
+                              <Trash2 size={22} />
+                            </Button>
+                          )}
+                        </div>
+                      ))}
 
-    <Input
-      type="text"
-      inputMode="numeric"
-      placeholder="200"
-      value={item.amount}
-      onChange={(e) => {
-        let v = e.target.value.replace(/\D/g, "");
-        v = v.slice(0, 4);
-
-        const list = [...ingredients];
-        list[index].amount = v;
-        setIngredients(list);
-      }}
-      required
-      className="w-16 sm:w-20 text-center"
-    />
-
-    <Select
-      value={item.unit}
-      onValueChange={(v) => {
-        const list = [...ingredients];
-        list[index].unit = v;
-        setIngredients(list);
-      }}
-    >
-      <SelectTrigger className="w-20 sm:w-24">
-        <SelectValue />
-      </SelectTrigger>
-
-      <SelectContent>
-        <SelectGroup>
-        <SelectLabel>Unidade de Medida</SelectLabel>
-                            <SelectItem value="G">g</SelectItem>
-                            <SelectItem value="KG">kg</SelectItem>
-                            <SelectItem value="ML">ml</SelectItem>
-                            <SelectItem value="L">l</SelectItem>
-                            <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
-                            <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
-                            <SelectItem value="COLHER">Colher</SelectItem>
-                            <SelectItem value="XICARA">Xícara</SelectItem>
-                            <SelectItem value="UN">un</SelectItem>
-                            <SelectItem value="PITADA">Pitada</SelectItem>
-                            <SelectItem value="MG">mg</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-
-    {ingredients.length > 1 && (
-      <Button
-        type="button"
-        onClick={() => removeIngredient(index)}
-        variant="ghost"
-        size="icon"
-        className="text-destructive p-0 w-4"
-        >
-        <Trash2 size={22} />
-      </Button>
-    )}
-  </div>
-))}
-
-                    <Button type="button" onClick={addIngredient} className="mt-8">
-                    Adicionar Ingrediente       
-                    <Plus size={32} />
-                    </Button>
+                      <Button type="button" onClick={addSteps} className="mt-8">
+                        Adicionar Etapa
+                        <Plus size={32} />
+                      </Button>
                     </div>
-                    </Field>
-                    <FieldSeparator />
-                    <Field>
-                    <FieldLabel>Modo de preparo</FieldLabel>
-
-                    <div className="space-y-2">
-
-                    {steps.map((item, index) => (
-  <div key={index} className="flex items-center gap-2 w-full">
-    <Input
-     type="text"
-     inputMode="numeric"
-     placeholder="1"
-     value={item.step}
-     onChange={(e) => {
-       let v = e.target.value.replace(/\D/g, "");
-       v = v.slice(0, 4);
-       const list = [...steps];
-       list[index].step = v;
-       setSteps(list);
-     }}
-     required
-      className="w-16 sm:w-20 text-center"
-    />
-
-    <Input
-      type="text"
-      placeholder="Jogue na bandeja"
-      value={item.description}
-      onChange={(e) => {
-        const list = [...steps];
-        list[index].description = v;
-        setSteps(list);
-      }}
-      required
-    />
-    {steps.length > 1 && (
-      <Button
-        type="button"
-        onClick={() => removeStep(index)}
-        variant="ghost"
-        size="icon"
-        className="text-destructive p-0 w-4"
-        >
-        <Trash2 size={22} />
-      </Button>
-    )}
-  </div>
-))}
-
-                    <Button type="button" onClick={addSteps} className="mt-8">
-                    Adicionar Etapa       
-                    <Plus size={32} />
+                  </Field>
+                  <Field orientation="horizontal" className="flex flex-1 justify-center py-4">
+                    <Button type="submit" className="w-32">
+                      Salvar
                     </Button>
-                    </div>
-                    </Field>
+                    <Button variant="outline" type="button">
+                      Cancelar
+                    </Button>
+                  </Field>
                 </FieldGroup>
               </FieldSet>
             </FieldGroup>
