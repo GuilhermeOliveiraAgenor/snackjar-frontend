@@ -60,18 +60,24 @@ export default function RegisterRecipe() {
   function addSteps() {
     setSteps((prev) => {
       const nextStep = prev.length > 0 ? prev[prev.length - 1].step + 1 : 1;
-
       return [...prev, { step: nextStep, description: "" }];
     });
   }
 
   function removeStep(index: number) {
-    setSteps((prev) => prev.filter((_, i) => i !== index));
+    setSteps((prev) => {
+      const list = prev.filter((_, i) => i !== index);
+  
+      return list.map((item, i) => ({
+        ...item,
+        step: i + 1,
+      }));
+    });
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
-      <Card className="w-full max-w-2xl shadow-lg">
+      <Card className="w-full max-w-2xl shadow-lg px-8">
         <CardHeader>
           <CardTitle className="text-center text-2xl">Cadastrar Receita</CardTitle>
         </CardHeader>
@@ -144,6 +150,11 @@ export default function RegisterRecipe() {
                   </Field>
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
+                    <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
+  <div className="flex-[3]">Ingrediente</div>
+  <div className="w-16 sm:w-20 text-center">Qtd</div>
+  <div className="w-20 sm:w-24 text-center">Unidade</div>
+</div>
                     <div className="space-y-2">
                       {ingredients.map((item, index) => (
                         <div key={index} className="flex items-center gap-2 w-full">
@@ -231,7 +242,11 @@ export default function RegisterRecipe() {
                   <FieldSeparator />
                   <Field>
                     <FieldLabel>Modo de Preparo</FieldLabel>
-
+            
+                    <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
+                      <div className="w-16 sm:w-20 text-center">Etapa</div>
+                      <div className="flex-1 text-center">Descrição</div>
+                    </div>
                     <div className="space-y-2">
                       {steps.map((item, index) => (
                         <div key={index} className="flex items-center gap-2 w-full">
