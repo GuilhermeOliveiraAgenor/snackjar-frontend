@@ -1,5 +1,4 @@
 import axios from "axios";
-import { error } from "console";
 
 //create instance axios
 export const api = axios.create({
