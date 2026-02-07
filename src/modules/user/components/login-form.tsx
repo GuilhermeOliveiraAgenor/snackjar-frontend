@@ -15,10 +15,7 @@ import { useLogin } from "../hooks/useLogin";
 import { FormEvent, useState } from "react";
 
 export default function LoginForm() {
-  const { login, isLoading, isError } = useLogin(); // hook
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login, isLoading } = useLogin(); // hook
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
