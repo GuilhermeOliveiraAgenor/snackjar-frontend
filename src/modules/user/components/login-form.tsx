@@ -13,21 +13,29 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "../hooks/useLogin";
 import { FormEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginFormData, loginSchema } from "../schemas/login-schema";
+import { email } from "zod";
 
 export default function LoginForm() {
   const { login, isLoading } = useLogin(); // hook
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    // zod form
+    resolver: zodResolver(loginSchema),
+  });
 
-    login({
-      email,
-      password,
-    });
+  async function onSubmit(data: LoginFormData) {
+    await login(data);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Suas receitas somente aqui</h1>
@@ -37,14 +45,8 @@ export default function LoginForm() {
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input
-            id="email"
-            type="email"
-            placeholder="seu@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <Input id="email" type="email" placeholder="seu@email.com" {...register("email")} />
+          {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
         </Field>
         <Field>
           <div className="flex items-center">
@@ -57,9 +59,9 @@ export default function LoginForm() {
             id="password"
             type="password"
             placeholder="************"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password")}
           />
+          {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </Field>
         <Button type="submit">Login</Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
