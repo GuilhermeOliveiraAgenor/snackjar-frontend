@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { authenticateUser } from "../services/authenticate-user";
 

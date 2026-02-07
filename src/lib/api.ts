@@ -15,9 +15,14 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
-        window.location.href = "/login";
+        const currentPath = window.location.pathname;
+
+        if (currentPath !== "/login") {
+          window.location.href = "/login";
+        }
       }
     }
+
     return Promise.reject(error.response?.data || error);
   }
 );

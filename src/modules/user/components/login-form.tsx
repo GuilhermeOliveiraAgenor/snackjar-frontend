@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -9,10 +11,26 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { useLogin } from "../hooks/useLogin";
+import { FormEvent, useState } from "react";
 
 export default function LoginForm() {
+  const { login, isLoading, isError } = useLogin(); // hook
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    login({
+      email,
+      password,
+    });
+  }
+
   return (
-    <form className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Suas receitas somente aqui</h1>
@@ -22,7 +40,14 @@ export default function LoginForm() {
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input id="email" type="email" placeholder="seu@email.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="seu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </Field>
         <Field>
           <div className="flex items-center">
@@ -31,7 +56,13 @@ export default function LoginForm() {
               Esqueceu sua senha ?
             </Link>
           </div>
-          <Input id="password" type="password" placeholder="************" />
+          <Input
+            id="password"
+            type="password"
+            placeholder="************"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Field>
         <Button type="submit">Login</Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
