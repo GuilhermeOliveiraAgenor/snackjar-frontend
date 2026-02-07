@@ -12,14 +12,12 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "../hooks/useLogin";
-import { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "../schemas/login-schema";
-import { email } from "zod";
 
 export default function LoginForm() {
-  const { login, isLoading } = useLogin(); // hook
+  const { login, loading } = useLogin(); // hook
 
   const {
     register,
@@ -63,7 +61,7 @@ export default function LoginForm() {
           />
           {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </Field>
-        <Button type="submit">Login</Button>
+        <Button type="submit">{loading ? "Entrando..." : "Login"}</Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
         <Field>
           <Button variant="outline" type="button">
