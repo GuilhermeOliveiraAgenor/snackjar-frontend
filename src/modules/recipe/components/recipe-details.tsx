@@ -1,43 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MoreHorizontal, Pencil } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 export default function RecipeDetails() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start gap-12 p-8">
       <Card className="w-full max-w-5xl text-center shadow-lg">
-      <CardHeader className="relative pt-6 pb-8">
+        <CardHeader className="relative pt-6 pb-8">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="absolute right-4 top-2">
+                <MoreHorizontal className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
 
-<DropdownMenu>
-  <DropdownMenuTrigger asChild>
-    <Button
-      variant="ghost"
-      size="icon"
-      className="absolute right-4 top-2"
-    >
-      <MoreHorizontal className="h-5 w-5" />
-    </Button>
-  </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Editar</DropdownMenuItem>
+              <DropdownMenuItem>Excluir</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-  <DropdownMenuContent align="end">
-    <DropdownMenuItem>Editar</DropdownMenuItem>
-    <DropdownMenuItem>Excluir</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
+          <CardTitle className="text-4xl font-bold">Bolo de Laranja 🍊</CardTitle>
 
-<CardTitle className="text-4xl font-bold">
-  Bolo de Laranja 🍊
-</CardTitle>
+          <p>Tempo de preparo: 60 min</p>
 
-<p>Tempo de preparo: 60 min</p>
-
-<p className="text-xl text-muted-foreground">
-  Receita simples, fofinha e caseira
-</p>
-
-</CardHeader>
-
+          <p className="text-xl text-muted-foreground">Receita simples, fofinha e caseira</p>
+        </CardHeader>
       </Card>
       <div className="w-full max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-10">
         <Card className="relative min-h-[480px] shadow-lg">

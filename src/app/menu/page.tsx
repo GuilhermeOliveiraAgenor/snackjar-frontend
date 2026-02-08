@@ -1,8 +1,10 @@
+"use client";
 import { CardSmall } from "@/components/menu/card";
 import { AppSidebar } from "@/components/menu/side-bar";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { Search } from "lucide-react";
 
 const cards = [
@@ -27,6 +29,15 @@ const cards = [
 ];
 
 export default function Page() {
+  const { data, isLoading, isError } = useRecipes();
+
+  if (isLoading) {
+    return <p className="p-4">Carregando receitas...</p>;
+  }
+
+  if (isError) {
+    return <p className="p-4">Erro ao carregar receitas.</p>;
+  }
   return (
     <SidebarProvider
       style={
@@ -59,14 +70,22 @@ export default function Page() {
           <Search className="text-white w-9 h-9 ml-3" />
         </div>
         <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
-          {cards.map((card) => (
+          {data.map((recipe) => (
+            <CardSmall
+              key={recipe.id}
+              title={recipe.title}
+              description={recipe.description}
+              preparationTime={recipe.preparationTime}
+            />
+          ))}
+          {/* {cards.map((card) => (
             <CardSmall
               key={card.id}
               title={card.title}
               preparationTime={card.preparationTime}
               description={card.description}
             />
-          ))}
+          ))} */}
         </div>
       </SidebarInset>
     </SidebarProvider>
