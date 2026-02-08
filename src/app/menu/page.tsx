@@ -1,35 +1,28 @@
 "use client";
 import { CardSmall } from "@/components/menu/card";
 import { AppSidebar } from "@/components/menu/side-bar";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
-import { Search } from "lucide-react";
-
-const cards = [
-  {
-    id: 1,
-    title: "Receitas iouiuiouiooooouiiiiiiuiiiiiiiooooooo",
-    preparationTime: "1 hora",
-    description: "Veja e edite suas receitas favoritas.",
-  },
-  {
-    id: 2,
-    title: "Favoritos",
-    preparationTime: "120 minutos",
-    description: "Acesse seus pratos preferidos.",
-  },
-  {
-    id: 3,
-    title: "Pudim de leite",
-    preparationTime: "1h:30 ",
-    description: "Receita de pudim",
-  },
-];
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  ChevronsRightLeft,
+  Search,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function Page() {
-  const { data, isLoading, isError } = useRecipes();
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isError } = useRecipes(page);
+
+  console.log("API RESPONSE:", data);
 
   if (isLoading) {
     return <p className="p-4">Carregando receitas...</p>;
@@ -38,6 +31,11 @@ export default function Page() {
   if (isError) {
     return <p className="p-4">Erro ao carregar receitas.</p>;
   }
+
+  if (!data) {
+    return <p className="p-4">Receitas não encontradas.</p>;
+  }
+
   return (
     <SidebarProvider
       style={
@@ -70,7 +68,7 @@ export default function Page() {
           <Search className="text-white w-9 h-9 ml-3" />
         </div>
         <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
-          {data.map((recipe) => (
+          {data.data.map((recipe) => (
             <CardSmall
               key={recipe.id}
               title={recipe.title}
@@ -78,14 +76,30 @@ export default function Page() {
               preparationTime={recipe.preparationTime}
             />
           ))}
-          {/* {cards.map((card) => (
-            <CardSmall
-              key={card.id}
-              title={card.title}
-              preparationTime={card.preparationTime}
-              description={card.description}
-            />
-          ))} */}
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-6 mb-10 sm:mt-8 sm:mb-16 lg:mt-12 lg:mb-20">
+          <Button
+            variant="ghost"
+            size="icon"
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+
+          <span className="text-sm font-medium">
+            Página {data.meta.page} de {Math.ceil(data.meta.total_count / data?.meta.per_page)}
+          </span>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            disabled={data.meta.page >= Math.ceil(data.meta.total_count / data.meta.per_page)}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
         </div>
       </SidebarInset>
     </SidebarProvider>

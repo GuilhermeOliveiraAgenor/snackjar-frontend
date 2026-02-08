@@ -1,4 +1,4 @@
-interface Recipe {
+export interface Recipe {
   id: string;
   title: string;
   description: string;
@@ -6,5 +6,3 @@ interface Recipe {
   status: string;
   categoryId: string;
 }
-
-export type { Recipe };
