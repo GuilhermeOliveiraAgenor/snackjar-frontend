@@ -1,6 +1,9 @@
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { authenticateUser } from "../services/authenticate-user";
+import { toast } from "sonner";
+import { ApiError } from "next/dist/server/api-utils";
+import { AxiosError } from "axios";
 
 export function useLogin() {
   const router = useRouter();
@@ -13,8 +16,8 @@ export function useLogin() {
       router.push("/menu");
     },
 
-    onError: () => {
-      alert("Erro ao fazer login");
+    onError: (error: AxiosError<ApiError>) => {
+      toast.error(error.message);
     },
   });
   return {
