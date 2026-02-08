@@ -3,37 +3,28 @@ import { CardSmall } from "@/components/menu/card";
 import { AppSidebar } from "@/components/menu/side-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ItemMedia, ItemContent, ItemTitle, Item } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Spinner } from "@/components/ui/spinner";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ChevronsRightLeft,
-  Search,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 
 export default function Page() {
   const [page, setPage] = useState(1);
   const { data, isLoading, isError } = useRecipes(page);
 
-  console.log("API RESPONSE:", data);
+  let statusMessage: React.ReactNode = null;
+  let showSpinner = false;
 
   if (isLoading) {
-    return <p className="p-4">Carregando receitas...</p>;
-  }
-
-  if (isError) {
-    return <p className="p-4">Erro ao carregar receitas.</p>;
-  }
-
-  if (!data) {
-    return <p className="p-4">Receitas não encontradas.</p>;
+    statusMessage = "Carregando receitas";
+    showSpinner = true;
+  } else if (isError) {
+    statusMessage = "Erro ao listar receitas";
+  } else if (data.data.length === 0) {
+    statusMessage = "Receitas não encontradas.";
   }
 
   return (
@@ -68,16 +59,20 @@ export default function Page() {
           <Search className="text-white w-9 h-9 ml-3" />
         </div>
         <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
-          {data.data.map((recipe) => (
-            <CardSmall
-              key={recipe.id}
-              title={recipe.title}
-              description={recipe.description}
-              preparationTime={recipe.preparationTime}
-            />
-          ))}
+          {!statusMessage &&
+            data.data.map((recipe) => (
+              <CardSmall
+                key={recipe.id}
+                title={recipe.title}
+                description={recipe.description}
+                preparationTime={recipe.preparationTime}
+              />
+            ))}
         </div>
-
+        <div className="flex items-center justify-center gap-2">
+          {showSpinner && <Spinner />}
+          <div className="font-medium">{statusMessage}</div>
+        </div>
         <div className="flex items-center justify-center gap-2 mt-6 mb-10 sm:mt-8 sm:mb-16 lg:mt-12 lg:mb-20">
           <Button
             variant="ghost"
@@ -87,9 +82,8 @@ export default function Page() {
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
-
           <span className="text-sm font-medium">
-            Página {data.meta.page} de {Math.ceil(data.meta.total_count / data?.meta.per_page)}
+            Página {data.meta.page} de {Math.ceil(data.meta.total_count / data.meta.per_page)}
           </span>
 
           <Button

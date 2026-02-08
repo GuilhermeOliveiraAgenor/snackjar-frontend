@@ -67,7 +67,7 @@ export default function RegisterRecipe() {
   function removeStep(index: number) {
     setSteps((prev) => {
       const list = prev.filter((_, i) => i !== index);
-  
+
       return list.map((item, i) => ({
         ...item,
         step: i + 1,
@@ -132,30 +132,30 @@ export default function RegisterRecipe() {
                     <FieldLabel>Categoria</FieldLabel>
 
                     <Combobox items={categories}>
-  <ComboboxInput placeholder="Selecione a categoria" required />
+                      <ComboboxInput placeholder="Selecione a categoria" required />
 
-  <ComboboxContent className="w-[var(--radix-popover-trigger-width)]">
-    <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                      <ComboboxContent className="w-[var(--radix-popover-trigger-width)]">
+                        <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
 
-    <ComboboxList>
-      {(item) => (
-        <ComboboxItem key={item} value={item}>
-          {item}
-        </ComboboxItem>
-      )}
-    </ComboboxList>
-  </ComboboxContent>
-</Combobox>
+                        <ComboboxList>
+                          {(item) => (
+                            <ComboboxItem key={item} value={item}>
+                              {item}
+                            </ComboboxItem>
+                          )}
+                        </ComboboxList>
+                      </ComboboxContent>
+                    </Combobox>
 
                     <FieldSeparator />
                   </Field>
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
-  <div className="flex-[3]">Nome</div>
-  <div className="w-16 sm:w-20 text-center">Qtd</div>
-  <div className="w-20 sm:w-24 text-center">Unidade</div>
-</div>
+                      <div className="flex-[3]">Nome</div>
+                      <div className="w-16 sm:w-20 text-center">Qtd</div>
+                      <div className="w-20 sm:w-24 text-center">Unidade</div>
+                    </div>
                     <div className="space-y-2">
                       {ingredients.map((item, index) => (
                         <div key={index} className="flex items-center gap-2 w-full">
@@ -243,7 +243,7 @@ export default function RegisterRecipe() {
                   <FieldSeparator />
                   <Field>
                     <FieldLabel>Modo de Preparo</FieldLabel>
-            
+
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
                       <div className="w-16 sm:w-20 text-center">Etapa</div>
                       <div className="flex-1 text-center">Descrição</div>

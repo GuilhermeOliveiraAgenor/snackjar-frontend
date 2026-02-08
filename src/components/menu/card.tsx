@@ -11,7 +11,7 @@ import { Clock, Heart } from "lucide-react";
 
 interface CardSmallProps {
   title: string;
-  preparationTime: string;
+  preparationTime: number;
   description: string;
 }
 
