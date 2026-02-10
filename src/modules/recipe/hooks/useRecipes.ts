@@ -5,11 +5,11 @@ import { fetchMyRecipes } from "../services/fetch-my-recipes";
 import { Recipe } from "../types/recipe";
 import { EmptyPagination, PaginatedResponse } from "@/modules/types/pagination";
 
-export function useRecipes(page: number) {
+export function useRecipes(page: number, title?: string) {
   const query = useQuery<PaginatedResponse<Recipe>>({
-    queryKey: ["recipes", "me", page], // hook id and parameter
+    queryKey: ["recipes", "me", page, title], // hook id and parameter
 
-    queryFn: () => fetchMyRecipes(page),
+    queryFn: () => fetchMyRecipes(page, title),
 
     staleTime: 1000 * 60 * 5, // cache
   });

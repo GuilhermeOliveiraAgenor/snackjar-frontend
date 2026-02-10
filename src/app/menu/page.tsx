@@ -3,17 +3,26 @@ import { CardSmall } from "@/components/menu/card";
 import { AppSidebar } from "@/components/menu/side-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ItemMedia, ItemContent, ItemTitle, Item } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 
 export default function Page() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useRecipes(page);
+  const [title, setTitle] = useState(""); // input
+
+  const debounceTitle = useDebounce(title, 500); // format param
+
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+    setPage(1);
+  };
+
+  const { data, isLoading, isError } = useRecipes(page, debounceTitle); // hook
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;
@@ -47,12 +56,14 @@ export default function Page() {
         <div className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5 transition">
           <Input
             className="
-      w-full
-      sm:max-w-sm
-      md:max-w-md
-      lg:max-w-lg
-      bg-white
-      h-10 "
+            w-full
+            sm:max-w-sm
+            md:max-w-md
+            lg:max-w-lg
+            bg-white
+            h-10 "
+            value={title}
+            onChange={(e) => handleTitleChange(e.target.value)}
             placeholder="O que vamos cozinhar hoje ?"
           />
 
