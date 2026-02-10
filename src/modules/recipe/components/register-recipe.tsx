@@ -230,7 +230,7 @@ export default function RegisterRecipe() {
                             >
                               <Trash2 size={22} />
                             </Button>
-                          )}  
+                          )}
                         </div>
                       ))}
 

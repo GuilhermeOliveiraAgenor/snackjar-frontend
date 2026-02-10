@@ -8,7 +8,5 @@ export async function fetchMyRecipes(page = 1, title?: string): Promise<Paginate
     params: { page, title },
   });
 
-  console.log(result.data.data);
-
   return result.data;
 }
