@@ -33,7 +33,7 @@ export function CardSmall({ title, preparationTime, description }: CardSmallProp
         <div className="flex flex-1">
           <CardDescription className="flex items-center gap-1">
             <Clock className="w-4 h-4 stroke-[2.5]" />
-            <span>{preparationTime}</span>
+            <span>{preparationTime} minutos</span>
           </CardDescription>
         </div>
       </CardHeader>

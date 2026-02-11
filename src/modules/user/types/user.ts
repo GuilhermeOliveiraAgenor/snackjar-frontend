@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -6,5 +6,3 @@ interface User {
   createdAt: string;
   updatedAt?: string;
 }
-
-export type { User };

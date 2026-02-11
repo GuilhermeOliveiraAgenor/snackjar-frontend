@@ -15,67 +15,11 @@ import {
   SidebarRail,
 } from "../ui/sidebar";
 import { NavUser } from "./profile";
-
-const data = {
-  user: {
-    name: "Joao",
-    email: "joao@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Home",
-      url: "#",
-      items: [
-        {
-          title: "Favoritas",
-          url: "#",
-        },
-        {
-          title: "Recentes",
-          url: "#",
-        },
-        {
-          title: "Rápidas (até 15 min)",
-          url: "#",
-        },
-        {
-          title: "Adicionar nova receita",
-          url: "#",
-          icon: Plus,
-        },
-      ],
-    },
-    {
-      title: "Categorias",
-      url: "#",
-      items: [
-        {
-          title: "Doce",
-          url: "#",
-        },
-        {
-          title: "Salgado",
-          url: "#",
-        },
-        {
-          title: "Almoço",
-          url: "#",
-        },
-        {
-          title: "Jantar",
-          url: "#",
-        },
-        {
-          title: "Café da manhã",
-          url: "#",
-        },
-      ],
-    },
-  ],
-};
+import { useCategories } from "@/modules/category/hooks/useCategories";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { categories, isLoading } = useCategories();
+
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -94,34 +38,92 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+        <SidebarMenu className="gap-2">
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <a href="#" className="font-medium">
+                Home
+              </a>
+            </SidebarMenuButton>
+
+            <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton asChild>
+                  <a href="#" className="flex items-center w-full">
+                    <span>Favoritas</span>
+                  </a>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton asChild>
+                  <a href="#" className="flex items-center w-full">
+                    <span>Recentes</span>
+                  </a>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton asChild>
+                  <a href="#" className="flex items-center w-full">
+                    <span>Rápidas (até 15 min)</span>
+                  </a>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton asChild>
+                  <a href="#" className="flex items-center w-full justify-between">
+                    <span>Adicionar nova receita</span>
+
+                    <Plus className="h-4 w-4" />
+                  </a>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            </SidebarMenuSub>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
-            {data.navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
-                  <a href={item.url} className="font-medium">
-                    {item.title}
-                  </a>
-                </SidebarMenuButton>
-                {item.items?.length ? (
-                  <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
-                    {item.items.map((item) => (
-                      <SidebarMenuSubItem key={item.title}>
-                        <SidebarMenuSubButton asChild isActive={item.isActive}>
-                          <a href={item.url} className="flex items-center w-full">
-                            <span>{item.title}</span>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <a href="#" className="font-medium">
+                  Categorias
+                </a>
+              </SidebarMenuButton>
 
-                            {item.icon && <item.icon />}
-                          </a>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                ) : null}
-              </SidebarMenuItem>
-            ))}
+              <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
+                {categories?.map((category) => (
+                  <SidebarMenuSubItem key={category.id}>
+                    <SidebarMenuSubButton asChild>
+                      <a href={category.url} className="flex items-center w-full">
+                        <span>{category.name}</span>
+                      </a>
+                    </SidebarMenuSubButton>
+                    {category.items?.length ? (
+                      <SidebarMenuSub className="ml-2 border-l-0 px-1.5">
+                        {category.items.map((item) => (
+                          <SidebarMenuSubItem key={item.title}>
+                            <SidebarMenuSubButton asChild isActive={item.isActive}>
+                              <a
+                                href={item.url}
+                                className="flex items-center w-full justify-between"
+                              >
+                                <span>{item.title}</span>
+
+                                {item.icon && <item.icon className="h-4 w-4" />}
+                              </a>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        ))}
+                      </SidebarMenuSub>
+                    ) : null}
+                  </SidebarMenuSubItem>
+                ))}
+              </SidebarMenuSub>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
