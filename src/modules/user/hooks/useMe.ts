@@ -8,7 +8,7 @@ export function useMe() {
     queryFn: getMe,
 
     staleTime: Infinity,
-    gcTime: 1000 * 60 * 10, 
+    gcTime: 1000 * 60 * 10,
 
     retry: false,
     refetchOnWindowFocus: false,
