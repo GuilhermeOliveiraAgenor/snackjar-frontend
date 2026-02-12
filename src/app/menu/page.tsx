@@ -9,11 +9,16 @@ import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
   const [page, setPage] = useState(1);
   const [title, setTitle] = useState(""); // input
+
+  const searchParams = useSearchParams();
+
+  const categoryId = searchParams.get("categoryId") ?? undefined;
 
   const debounceTitle = useDebounce(title, 500); // format param
 
@@ -22,7 +27,7 @@ export default function Page() {
     setPage(1);
   };
 
-  const { data, isLoading, isError } = useRecipes(page, debounceTitle); // hook
+  const { data, isLoading, isError } = useRecipes(page, debounceTitle, categoryId); // hook
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;
@@ -32,8 +37,12 @@ export default function Page() {
     showSpinner = true;
   } else if (isError) {
     statusMessage = "Erro ao listar receitas";
-  } else if (data.data.length === 0) {
-    statusMessage = "Receitas não encontradas.";
+  } else if (data?.data.length === 0) {
+    statusMessage = "Receitas não encontradas";
+  }
+
+  if (!data) {
+    return null;
   }
 
   return (

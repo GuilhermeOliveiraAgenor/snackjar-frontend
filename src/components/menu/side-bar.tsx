@@ -98,7 +98,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {categories?.map((category) => (
                   <SidebarMenuSubItem key={category.id}>
                     <SidebarMenuSubButton asChild>
-                      <a href={category.url} className="flex items-center w-full">
+                      <a
+                        href={`/menu?categoryId=${category.id}`}
+                        className="flex items-center w-full"
+                      >
                         <span>{category.name}</span>
                       </a>
                     </SidebarMenuSubButton>
@@ -108,7 +111,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <SidebarMenuSubItem key={item.title}>
                             <SidebarMenuSubButton asChild isActive={item.isActive}>
                               <a
-                                href={item.url}
+                                href={`/menu?categoryId=${item.id}`}
                                 className="flex items-center w-full justify-between"
                               >
                                 <span>{item.title}</span>
