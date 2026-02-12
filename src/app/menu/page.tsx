@@ -9,6 +9,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -59,7 +60,11 @@ export default function Page() {
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
           <div className="flex-1 flex justify-center items-center text-3xl font-bold tracking-wide text-primary rounded-2xl shadow-xl shadow-black/17 px-2 py-4">
-            <h1>SNACK JAR</h1>
+            <h1>
+              <Link href="/menu" className="hover:opacity-80 transition">
+                SNACK JAR
+              </Link>
+            </h1>
           </div>
         </header>
         <div className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5 transition">

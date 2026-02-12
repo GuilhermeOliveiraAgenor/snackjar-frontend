@@ -16,6 +16,7 @@ import {
 } from "../ui/sidebar";
 import { NavUser } from "./profile";
 import { useCategories } from "@/modules/category/hooks/useCategories";
+import Link from "next/link";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { categories, isLoading } = useCategories();
@@ -26,7 +27,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="menu">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <ChefHat className="size-6" />
                 </div>
@@ -34,14 +35,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="font-medium">Snack Jar</span>
                   <span className="">Suas receitas aqui</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu className="gap-2">
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <a href="#" className="font-medium">
+              <a href="/menu" className="font-medium">
                 Home
               </a>
             </SidebarMenuButton>
