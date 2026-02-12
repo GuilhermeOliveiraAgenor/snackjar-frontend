@@ -28,7 +28,7 @@ export default function Page() {
     setPage(1);
   };
 
-  const { data, isLoading, isError } = useRecipes(page, debounceTitle, categoryId); // hook
+  const { data, isLoading, isError } = useRecicpes(page, debounceTitle, categoryId); // hook
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;
