@@ -74,11 +74,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild>
-                  <a href="#" className="flex items-center w-full justify-between">
+                  <Link href="/register" className="flex items-center w-full justify-between">
                     <span>Adicionar nova receita</span>
 
                     <Plus className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             </SidebarMenuSub>
