@@ -84,12 +84,12 @@ export default function RecipeDetails() {
           </CardContent>
 
           <div className="absolute bottom-4 right-4">
-            {/* <IngredientSheet>
+            <IngredientSheet>
               <div className="flex items-center gap-2 cursor-pointer">
                 <span className="text-sm font-medium">Adicionar</span>
                 <Plus className="w-6 h-6 text-primary hover:scale-110 transition" />
               </div>
-            </IngredientSheet> */}
+            </IngredientSheet>
           </div>
         </Card>
 
@@ -112,14 +112,14 @@ export default function RecipeDetails() {
               ))}
             </ul>
 
-            {/* <StepSheet>
+            <StepSheet>
               <div className="absolute bottom-4 right-4">
                 <div className="flex items-center gap-2 cursor-pointer">
                   <span className="text-sm font-medium">Adicionar</span>
                   <Plus className="w-6 h-6 text-primary hover:scale-110 transition" />
                 </div>
               </div>
-            </StepSheet> */}
+            </StepSheet>
           </CardContent>
         </Card>
       </div>
