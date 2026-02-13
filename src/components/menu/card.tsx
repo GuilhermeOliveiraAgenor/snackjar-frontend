@@ -1,3 +1,6 @@
+
+
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,14 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Clock, Heart } from "lucide-react";
+import Link from "next/link";
 
 interface CardSmallProps {
+  id: string;
   title: string;
   preparationTime: number;
   description: string;
 }
 
-export function CardSmall({ title, preparationTime, description }: CardSmallProps) {
+export function CardSmall({ id, title, preparationTime, description }: CardSmallProps) {
   return (
     <Card
       size="sm"
@@ -41,8 +46,8 @@ export function CardSmall({ title, preparationTime, description }: CardSmallProp
         <p>{description}</p>
       </CardContent>
       <CardFooter>
-        <Button variant="outline" size="sm" className="w-full">
-          Ver detalhes
+        <Button asChild variant="outline" size="sm" className="w-full">
+          <Link href={`/recipe/${id}`}>Ver detalhes</Link>
         </Button>
       </CardFooter>
     </Card>

@@ -28,7 +28,7 @@ export default function Page() {
     setPage(1);
   };
 
-  const { data, isLoading, isError } = useRecicpes(page, debounceTitle, categoryId); // hook
+  const { data, isLoading, isError } = useRecipes(page, debounceTitle, categoryId); // hook
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;
@@ -88,6 +88,7 @@ export default function Page() {
             data.data.map((recipe) => (
               <CardSmall
                 key={recipe.id}
+                id={recipe.id}
                 title={recipe.title}
                 description={recipe.description}
                 preparationTime={recipe.preparationTime}
