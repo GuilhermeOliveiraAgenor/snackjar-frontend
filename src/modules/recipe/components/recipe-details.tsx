@@ -42,7 +42,10 @@ export default function RecipeDetails() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="end" className="w-44">
-                <DropdownMenuItem>Editar</DropdownMenuItem>
+                <Button>
+                  <DropdownMenuItem>Editar</DropdownMenuItem>
+                  
+                </Button>
                 <DropdownMenuItem>Excluir</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -111,7 +114,6 @@ export default function RecipeDetails() {
                 </li>
               ))}
             </ul>
-
             <StepSheet>
               <div className="absolute bottom-4 right-4">
                 <div className="flex items-center gap-2 cursor-pointer">
