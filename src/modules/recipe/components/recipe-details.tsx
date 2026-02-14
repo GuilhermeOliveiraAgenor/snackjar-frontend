@@ -9,8 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -79,7 +77,7 @@ export default function RecipeDetails() {
                       {ingredient.ingredient}
                     </span>
 
-                    <IngredientSheet />
+                    <IngredientSheet ingredient={ingredient} />
                   </div>
                 </li>
               ))}
@@ -109,7 +107,7 @@ export default function RecipeDetails() {
                     <span className="flex-1 min-w-0 break-all">
                       {step.step}. {step.description}
                     </span>
-                    <StepSheet />
+                    <StepSheet step={step} />
                   </div>
                 </li>
               ))}

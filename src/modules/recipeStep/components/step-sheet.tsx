@@ -6,9 +6,14 @@ import { MoreHorizontal } from "lucide-react";
 
 type StepSheetProps = {
   children?: React.ReactNode;
+  step?: {
+    id: string;
+    step: number;
+    description: string;
+  };
 };
 
-export function StepSheet({ children }: StepSheetProps) {
+export function StepSheet({ children, step }: StepSheetProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -39,12 +44,12 @@ export function StepSheet({ children }: StepSheetProps) {
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="step">Etapa</Label>
-              <Input id="step" placeholder="1" className="w-12" />
+              <Input id="step" value={step?.step} placeholder="1" className="w-12" />
             </div>
 
             <div className="grid gap-4">
               <Label htmlFor="description">Descrição</Label>
-              <Input id="description" placeholder="Jogue na bandeja" />
+              <Input id="description" value={step?.description} placeholder="Jogue na bandeja" />
             </div>
           </div>
 
