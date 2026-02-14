@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MoreHorizontal } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useEditIngredient } from "../hooks/useEditIngredient";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,13 +23,15 @@ import {
 } from "../schemas/create-ingredient-schema";
 import { EditIngredientFormData, editIngredientSchema } from "../schemas/edit-ingredient-schema";
 import { useParams } from "next/navigation";
+import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
+import { measurementUnitLabels } from "@/lib/measurementUnitLabels";
 
 type IngredientSheetProps = {
   children?: React.ReactNode;
   ingredient?: {
     id: string;
     amount: string;
-    unit: string;
+    unit: MeasurementUnit;
     ingredient: string;
   };
   mode?: "create" | "edit";
@@ -41,6 +43,8 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
   const params = useParams();
   const recipeId = params.recipeId as string;
 
+  const [open, setOpen] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -51,7 +55,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     resolver: zodResolver(mode === "edit" ? editIngredientSchema : createIngredientSchema),
   });
   useEffect(() => {
-    if (ingredient) {
+    if (ingredient && open) {
       reset({
         id: ingredient.id,
         ingredient: ingredient.ingredient,
@@ -59,22 +63,21 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
         unit: ingredient.unit,
       });
     }
-  }, [ingredient, reset]);
-  const { editIngredient } = useEditIngredient();
-  const { createIngredient } = useCreateIngredient();
+  }, [ingredient, open, reset]);
+  const { editIngredient } = useEditIngredient(recipeId);
+  const { createIngredient } = useCreateIngredient(recipeId);
 
   async function onSubmit(data: FormData) {
     if (mode === "edit") {
       await editIngredient(data as EditIngredientFormData);
     } else {
-      console.log(recipeId);
-      console.log(mode);
       await createIngredient({ recipeId, ...(data as CreateIngredientFormData) });
     }
-    console.log(data);
+    setOpen(false);
+    reset();
   }
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         {children ? (
           children
@@ -113,7 +116,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
 
             <div className="grid gap-4">
               <Label htmlFor="amount">Quantidade</Label>
-              <Input id="amount" {...register("amount")} placeholder="1000" />
+              <Input type="number" id="amount" {...register("amount")} placeholder="1000" />
               {errors.amount && <span>{errors.amount.message}</span>}
             </div>
 
@@ -123,30 +126,26 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
                 name="unit"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    {" "}
-                    <SelectTrigger className="w-40 sm:w-24">
-                      <SelectValue />
+                    <SelectTrigger className="w-48 sm:w-36">
+                      <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
+
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Unidade de Medida</SelectLabel>
-                        <SelectItem value="G">g</SelectItem>
-                        <SelectItem value="KG">kg</SelectItem>
-                        <SelectItem value="ML">ml</SelectItem>
-                        <SelectItem value="L">l</SelectItem>
-                        <SelectItem value="COLHER_SOPA">Colher de Sopa</SelectItem>
-                        <SelectItem value="COLHER_CHA">Colher de Chá</SelectItem>
-                        <SelectItem value="COLHER">Colher</SelectItem>
-                        <SelectItem value="XICARA">Xícara</SelectItem>
-                        <SelectItem value="UN">un</SelectItem>
-                        <SelectItem value="PITADA">Pitada</SelectItem>
-                        <SelectItem value="MG">mg</SelectItem>
+
+                        {Object.values(MeasurementUnit).map((unit) => (
+                          <SelectItem key={unit} value={unit}>
+                            {measurementUnitLabels[unit].singular}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
                 )}
               />
-              {errors.unit && <span>{errors.unit.message}</span>}
+
+              {errors.unit && <span className="text-sm text-red-500">{errors.unit.message}</span>}
             </div>
           </div>
 

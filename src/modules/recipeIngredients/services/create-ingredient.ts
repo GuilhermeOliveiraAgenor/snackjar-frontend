@@ -1,10 +1,11 @@
 import { api } from "@/lib/api";
+import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 
 interface CreateIngredientRequest {
   recipeId: string;
   ingredient: string;
   amount: string;
-  unit: string;
+  unit: MeasurementUnit;
 }
 
 export async function createIngredient(data: CreateIngredientRequest) {

@@ -1,16 +1,18 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MoreHorizontal, Pencil, Plus } from "lucide-react";
+import { MoreHorizontal, Plus } from "lucide-react";
 import { IngredientSheet } from "@/modules/recipeIngredients/components/ingredient-sheet";
 import { StepSheet } from "@/modules/recipeStep/components/step-sheet";
 import { useParams } from "next/navigation";
 import { useRecipeDetails } from "../hooks/useRecipeDetails";
-import { Button } from "@/components/ui/button";
 import { SheetRecipe } from "./sheet-recipe";
+import { formatMeasurementUnit } from "@/lib/formatMeasurementUnitLabels";
+import { useState } from "react";
 
 export default function RecipeDetails() {
   const params = useParams();
   const recipeId = params.recipeId as string; // id param
+  const [open, setOpen] = useState(false);
 
   const { data, isLoading } = useRecipeDetails(recipeId);
 
@@ -44,7 +46,7 @@ export default function RecipeDetails() {
         </CardHeader>
       </Card>
 
-      <div className="w-full max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
+      <div className="w-full max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-start">
         <Card className="relative shadow-lg">
           <CardHeader className="px-6 sm:px-8 pt-8">
             <CardTitle className="text-2xl sm:text-3xl">Ingredientes</CardTitle>
@@ -56,7 +58,8 @@ export default function RecipeDetails() {
                 <li key={ingredient.id} className="group">
                   <div className="flex items-start gap-4">
                     <span className="flex-1 min-w-0 break-all">
-                      {ingredient.amount} {ingredient.unit.toLocaleLowerCase()} de{" "}
+                      {ingredient.amount}{" "}
+                      {formatMeasurementUnit(ingredient.unit, ingredient.amount)} de{" "}
                       {ingredient.ingredient}
                     </span>
                     <IngredientSheet ingredient={ingredient} mode="edit" />
