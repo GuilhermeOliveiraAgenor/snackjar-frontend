@@ -16,7 +16,13 @@ import { useEffect } from "react";
 import { useEditIngredient } from "../hooks/useEditIngredient";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IngredientFormData, IngredientSchema } from "../schemas/ingredient-schema";
+import { useCreateIngredient } from "../hooks/useCreateIngredient";
+import {
+  CreateIngredientFormData,
+  createIngredientSchema,
+} from "../schemas/create-ingredient-schema";
+import { EditIngredientFormData, editIngredientSchema } from "../schemas/edit-ingredient-schema";
+import { useParams } from "next/navigation";
 
 type IngredientSheetProps = {
   children?: React.ReactNode;
@@ -29,15 +35,20 @@ type IngredientSheetProps = {
   mode?: "create" | "edit";
 };
 
+type FormData = CreateIngredientFormData | EditIngredientFormData;
+
 export function IngredientSheet({ children, ingredient, mode }: IngredientSheetProps) {
+  const params = useParams();
+  const recipeId = params.recipeId as string;
+
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm<IngredientFormData>({
-    resolver: zodResolver(IngredientSchema),
+  } = useForm<FormData>({
+    resolver: zodResolver(mode === "edit" ? editIngredientSchema : createIngredientSchema),
   });
   useEffect(() => {
     if (ingredient) {
@@ -49,13 +60,16 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
       });
     }
   }, [ingredient, reset]);
-  const { editIngredient, loading, error } = useEditIngredient();
+  const { editIngredient } = useEditIngredient();
+  const { createIngredient } = useCreateIngredient();
 
-  async function onSubmit(data: IngredientFormData) {
+  async function onSubmit(data: FormData) {
     if (mode === "edit") {
-      await editIngredient(data);
+      await editIngredient(data as EditIngredientFormData);
     } else {
-      
+      console.log(recipeId);
+      console.log(mode);
+      await createIngredient({ recipeId, ...(data as CreateIngredientFormData) });
     }
     console.log(data);
   }
