@@ -13,3 +13,4 @@ export async function authenticateUser(data: AuthenticateUserRequest) {
 
   return result;
 }
+  

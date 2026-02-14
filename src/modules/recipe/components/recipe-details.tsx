@@ -66,7 +66,7 @@ export default function RecipeDetails() {
                       {ingredient.ingredient}
                     </span>
 
-                    <IngredientSheet ingredient={ingredient} />
+                    <IngredientSheet ingredient={ingredient} mode="edit" />
                   </div>
                 </li>
               ))}
@@ -74,7 +74,7 @@ export default function RecipeDetails() {
           </CardContent>
 
           <div className="absolute bottom-4 right-4">
-            <IngredientSheet>
+            <IngredientSheet mode="create">
               <div className="flex items-center gap-2 cursor-pointer">
                 <span className="text-sm font-medium">Adicionar</span>
                 <Plus className="w-6 h-6 text-primary hover:scale-110 transition" />

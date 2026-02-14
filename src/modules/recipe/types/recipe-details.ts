@@ -11,7 +11,7 @@ export type RecipeDetails = {
   ingredients: {
     id: string;
     ingredient: string;
-    amount: number;
+    amount: string;
     unit: string;
     recipeId: string;
   }[];
