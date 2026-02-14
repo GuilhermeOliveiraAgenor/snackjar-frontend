@@ -5,11 +5,10 @@ interface EditIngredientRequest {
   ingredient: string;
   amount: string;
   unit: string;
-  recipeId: string;
 }
 
 export async function editIngredient(data: EditIngredientRequest) {
-  const result = await api("/recipes/:id", {
+  const result = await api(`/recipes/ingredients/${data.id}`, {
     method: "PUT",
     data,
   });

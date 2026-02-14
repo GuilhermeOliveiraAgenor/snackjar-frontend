@@ -8,14 +8,14 @@ export function useEditIngredient() {
   const mutation = useMutation({
     mutationFn: editIngredient,
     onSuccess: () => {
-      toast.success("Ingredient editado com sucesso");
+      toast.success("Ingrediente editado com sucesso");
     },
     onError: (error: AxiosError<ApiError>) => {
       toast.error(error.message);
     },
   });
   return {
-    ingredients: mutation.mutateAsync,
+    editIngredient: mutation.mutateAsync,
     loading: mutation.isPending,
     error: mutation.isError,
   };

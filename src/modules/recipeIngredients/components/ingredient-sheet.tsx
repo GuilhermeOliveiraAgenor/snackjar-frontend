@@ -16,7 +16,7 @@ import { useEffect } from "react";
 import { useEditIngredient } from "../hooks/useEditIngredient";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditIngredientFormData, editIngredientSchema } from "../schemas/ingredient-schema";
+import { IngredientFormData, IngredientSchema } from "../schemas/ingredient-schema";
 
 type IngredientSheetProps = {
   children?: React.ReactNode;
@@ -36,25 +36,29 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     control,
     reset,
     formState: { errors },
-  } = useForm<EditIngredientFormData>({
-    resolver: zodResolver(editIngredientSchema),
-    // defaultValues: {
-    //   ingredient: "",
-    //   amount: "",
-    //   unit: "",
-    // },
+  } = useForm<IngredientFormData>({
+    resolver: zodResolver(IngredientSchema),
   });
   useEffect(() => {
     if (ingredient) {
       reset({
+        id: ingredient.id,
         ingredient: ingredient.ingredient,
         amount: ingredient.amount,
         unit: ingredient.unit,
       });
     }
   }, [ingredient, reset]);
-  const { ingredients, loading, error } = useEditIngredient();
+  const { editIngredient, loading, error } = useEditIngredient();
 
+  async function onSubmit(data: IngredientFormData) {
+    if (mode === "edit") {
+      await editIngredient(data);
+    } else {
+      
+    }
+    console.log(data);
+  }
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -83,16 +87,20 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </SheetTitle>
         </SheetHeader>
 
-        <form className="flex flex-col flex-1 mt-14">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-14">
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="ingredient">Ingrediente</Label>
               <Input id="ingredient" {...register("ingredient")} placeholder="Farinha de trigo" />
+              {errors.ingredient && (
+                <span className="text-sm text-red-500">{errors.ingredient.message}</span>
+              )}
             </div>
 
             <div className="grid gap-4">
               <Label htmlFor="amount">Quantidade</Label>
               <Input id="amount" {...register("amount")} placeholder="1000" />
+              {errors.amount && <span>{errors.amount.message}</span>}
             </div>
 
             <div className="grid gap-4">
@@ -124,6 +132,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
                   </Select>
                 )}
               />
+              {errors.unit && <span>{errors.unit.message}</span>}
             </div>
           </div>
 

@@ -5,12 +5,6 @@ import { IngredientSheet } from "@/modules/recipeIngredients/components/ingredie
 import { StepSheet } from "@/modules/recipeStep/components/step-sheet";
 import { useParams } from "next/navigation";
 import { useRecipeDetails } from "../hooks/useRecipeDetails";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { SheetRecipe } from "./sheet-recipe";
 
@@ -65,7 +59,6 @@ export default function RecipeDetails() {
                       {ingredient.amount} {ingredient.unit.toLocaleLowerCase()} de{" "}
                       {ingredient.ingredient}
                     </span>
-
                     <IngredientSheet ingredient={ingredient} mode="edit" />
                   </div>
                 </li>
