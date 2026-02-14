@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { SheetRecipe } from "./sheet-recipe";
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -32,21 +33,9 @@ export default function RecipeDetails() {
       <Card className="w-full max-w-5xl text-center shadow-lg">
         <CardHeader className="relative pt-6 pb-8 px-4 sm:px-8">
           <div className="absolute top-4 right-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <MoreHorizontal className="w-5 h-5" />
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="end" className="w-44">
-                <Button>
-                  <DropdownMenuItem>Editar</DropdownMenuItem>
-                  
-                </Button>
-                <DropdownMenuItem>Excluir</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SheetRecipe recipe={data.recipe}>
+              <MoreHorizontal />
+            </SheetRecipe>
           </div>
 
           <CardTitle className="text-2xl sm:text-4xl font-bold break-words">
