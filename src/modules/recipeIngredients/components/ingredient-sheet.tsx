@@ -76,8 +76,9 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
       });
     }
   }, [ingredient, open, reset]);
-  const { editIngredient } = useEditIngredient(recipeId);
+
   const { createIngredient } = useCreateIngredient(recipeId);
+  const { editIngredient } = useEditIngredient(recipeId);
   const { deleteIngredient } = useDeleteIngredient(recipeId);
 
   async function onSubmit(data: FormData) {
@@ -137,7 +138,12 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
 
             <div className="grid gap-4">
               <Label htmlFor="amount">Quantidade</Label>
-              <Input type="number" id="amount" {...register("amount")} placeholder="1000" />
+              <Input
+                id="amount"
+                inputMode="numeric"
+                {...(register("amount"), { valueAsNumber: true })}
+                placeholder="1000"
+              />
               {errors.amount && <span>{errors.amount.message}</span>}
             </div>
 

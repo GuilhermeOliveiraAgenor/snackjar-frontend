@@ -10,7 +10,7 @@ export function useEditStep(recipeId: string) {
     mutationFn: editStep,
 
     onSuccess: () => {
-      toast.success("Etap editada com sucesso");
+      toast.success("Etapa editada com sucesso");
       queryClient.invalidateQueries({
         queryKey: ["recipe-details", recipeId],
       });

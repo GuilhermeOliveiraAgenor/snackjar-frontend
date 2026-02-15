@@ -7,12 +7,10 @@ import { useParams } from "next/navigation";
 import { useRecipeDetails } from "../hooks/useRecipeDetails";
 import { SheetRecipe } from "./sheet-recipe";
 import { formatMeasurementUnit } from "@/lib/formatMeasurementUnitLabels";
-import { useState } from "react";
 
 export default function RecipeDetails() {
   const params = useParams();
   const recipeId = params.recipeId as string; // id param
-  const [open, setOpen] = useState(false);
 
   const { data, isLoading } = useRecipeDetails(recipeId);
 

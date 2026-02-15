@@ -7,7 +7,7 @@ interface CreateStepRequest {
 }
 
 export async function createStep(data: CreateStepRequest) {
-  const result = await api(`/recipe/steps/${data.recipeId}`, {
+  const result = await api(`/recipes/steps/${data.recipeId}`, {
     method: "POST",
     data,
   });

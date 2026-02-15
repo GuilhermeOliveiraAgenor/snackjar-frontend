@@ -24,7 +24,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { type } from "os";
 
 const categories = ["Doce", "Salgado", "Almoço", "Jantar", "Café da Manhã"] as const;
 

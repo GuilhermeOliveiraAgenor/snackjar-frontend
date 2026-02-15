@@ -7,7 +7,7 @@ interface EditStepRequest {
 }
 
 export async function editStep(data: EditStepRequest) {
-  const result = await api(`/recipe/steps/${data.id}`, {
+  const result = await api(`/recipes/steps/${data.id}`, {
     method: "PUT",
     data,
   });
