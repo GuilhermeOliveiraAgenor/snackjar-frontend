@@ -60,14 +60,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild>
                   <a href="#" className="flex items-center w-full">
-                    <span>Recentes</span>
-                  </a>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton asChild>
-                  <a href="#" className="flex items-center w-full">
                     <span>Rápidas (até 15 min)</span>
                   </a>
                 </SidebarMenuSubButton>
