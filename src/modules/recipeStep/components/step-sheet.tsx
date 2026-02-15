@@ -118,17 +118,25 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
               <Label htmlFor="step">Etapa</Label>
               <Input
                 id="step"
+                maxLength={4}
                 {...register("step", { valueAsNumber: true })}
                 placeholder="1"
-                className="w-12"
+                className="w-14"
               />
               {errors.step && <span className="text-sm text-red-500">{errors.step.message}</span>}
             </div>
 
             <div className="grid gap-4">
               <Label htmlFor="description">Descrição</Label>
-              <Input id="description" {...register("description")} placeholder="Jogue na bandeja" />
-              {errors.step && <span className="text-sm text-red-500">{errors.step.message}</span>}
+              <Input
+                id="description"
+                maxLength={50}
+                {...register("description")}
+                placeholder="Jogue na bandeja"
+              />
+              {errors.description && (
+                <span className="text-sm text-red-500">{errors.description.message}</span>
+              )}
             </div>
           </div>
 

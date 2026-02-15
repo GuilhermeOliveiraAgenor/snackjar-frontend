@@ -107,7 +107,12 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="Titulo">Titulo</Label>
-              <Input id="Titulo" {...register("title")} placeholder="Bolo de cenoura" />
+              <Input
+                id="Titulo"
+                {...register("title")}
+                maxLength={50}
+                placeholder="Bolo de cenoura"
+              />
               {errors.title && <span className="text-sm text-red-500">{errors.title.message}</span>}
             </div>
 
@@ -129,18 +134,17 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
 
               <div className="flex items-center gap-2">
                 <Input
-                  type="number"
                   className="w-18"
-                  {...register("preparationTime", { valueAsNumber: true })}
+                  maxLength={4}
+                  {...register("preparationTime")}
                   placeholder="60"
                   inputMode="numeric"
                 />
-                {errors.preparationTime && (
-                  <span className="text-sm text-red-500">{errors.preparationTime.message}</span>
-                )}
-
                 <span className="text-sm">minutos</span>
               </div>
+              {errors.preparationTime && (
+                <span className="text-sm text-red-500">{errors.preparationTime.message}</span>
+              )}
             </div>
           </div>
 

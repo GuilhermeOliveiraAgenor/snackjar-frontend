@@ -130,7 +130,12 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="ingredient">Ingrediente</Label>
-              <Input id="ingredient" {...register("ingredient")} placeholder="Farinha de trigo" />
+              <Input
+                id="ingredient"
+                {...register("ingredient")}
+                maxLength={50}
+                placeholder="Farinha de trigo"
+              />
               {errors.ingredient && (
                 <span className="text-sm text-red-500">{errors.ingredient.message}</span>
               )}
@@ -141,10 +146,17 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
               <Input
                 id="amount"
                 inputMode="numeric"
-                {...(register("amount"), { valueAsNumber: true })}
+                maxLength={4}
+                {...register("amount", {
+                  onChange: (e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4);
+                  },
+                })}
                 placeholder="1000"
               />
-              {errors.amount && <span>{errors.amount.message}</span>}
+              {errors.amount && (
+                <span className="text-sm text-red-500">{errors.amount.message}</span>
+              )}
             </div>
 
             <div className="grid gap-4">
