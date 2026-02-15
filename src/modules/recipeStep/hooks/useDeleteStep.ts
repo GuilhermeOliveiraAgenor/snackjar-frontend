@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
-import { toast } from "sonner";
-import { deleteIngredient } from "../services/delete-ingredient";
+import { deleteStep } from "../services/delete-step";
 
-export function useDeleteIngredient(recipeId: string) {
+export function useDeleteStep(recipeId: string) {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: deleteIngredient,
+    mutationFn: deleteStep,
 
     onSuccess: () => {
-      toast.success("Ingrediente deletado com sucesso");
+      toast.success("Etap deletada com sucesso");
       queryClient.invalidateQueries({
         queryKey: ["recipe-details", recipeId],
       });
@@ -20,7 +20,7 @@ export function useDeleteIngredient(recipeId: string) {
     },
   });
   return {
-    deleteIngredient: mutation.mutateAsync,
+    deleteStep: mutation.mutateAsync,
     loading: mutation.isPending,
     error: mutation.isError,
   };
