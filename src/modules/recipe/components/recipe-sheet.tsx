@@ -136,7 +136,7 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
                 <Input
                   className="w-18"
                   maxLength={4}
-                  {...register("preparationTime")}
+                  {...register("preparationTime", { valueAsNumber: true })}
                   placeholder="60"
                   inputMode="numeric"
                 />

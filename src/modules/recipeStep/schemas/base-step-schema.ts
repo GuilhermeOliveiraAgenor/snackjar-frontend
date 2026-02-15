@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const baseStepSchema = z.object({
-  step: z.number("Digite um número").max(4, "Máximo de 4 caracteres"),
+  step: z.number("Digite um número"),
   description: z
     .string()
     .trim()
