@@ -5,8 +5,8 @@ import { IngredientSheet } from "@/modules/recipeIngredients/components/ingredie
 import { StepSheet } from "@/modules/recipeStep/components/step-sheet";
 import { useParams } from "next/navigation";
 import { useRecipeDetails } from "../hooks/useRecipeDetails";
-import { SheetRecipe } from "./sheet-recipe";
 import { formatMeasurementUnit } from "@/lib/formatMeasurementUnitLabels";
+import { RecipeSheet } from "./recipe-sheet";
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -27,9 +27,11 @@ export default function RecipeDetails() {
       <Card className="w-full max-w-5xl text-center shadow-lg">
         <CardHeader className="relative pt-6 pb-8 px-4 sm:px-8">
           <div className="absolute top-4 right-4">
-            <SheetRecipe recipe={data.recipe}>
-              <MoreHorizontal />
-            </SheetRecipe>
+            <RecipeSheet recipe={data.recipe}>
+              <div className="cursor-pointer">
+                <MoreHorizontal />
+              </div>
+            </RecipeSheet>
           </div>
 
           <CardTitle className="text-2xl sm:text-4xl font-bold break-words">
