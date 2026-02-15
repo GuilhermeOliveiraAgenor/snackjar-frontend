@@ -10,7 +10,7 @@ export function useDeleteStep(recipeId: string) {
     mutationFn: deleteStep,
 
     onSuccess: () => {
-      toast.success("Etap deletada com sucesso");
+      toast.success("Etapa deletada com sucesso");
       queryClient.invalidateQueries({
         queryKey: ["recipe-details", recipeId],
       });

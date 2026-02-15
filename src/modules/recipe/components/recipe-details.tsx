@@ -19,7 +19,7 @@ export default function RecipeDetails() {
   }
 
   if (!data) {
-    return <p className="p-8">Erro ao carregar receita.</p>;
+    return <p className="p-8">Receita não encontrada</p>;
   }
 
   return (

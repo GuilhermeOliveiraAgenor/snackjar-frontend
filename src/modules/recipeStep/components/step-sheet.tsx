@@ -12,6 +12,17 @@ import { useForm } from "react-hook-form";
 import { useCreateStep } from "../hooks/useCreateStep";
 import { useEditStep } from "../hooks/useEditStep";
 import { useDeleteStep } from "../hooks/useDeleteStep";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type StepSheetProps = {
   children?: React.ReactNode;
@@ -124,9 +135,25 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
             <Button type="submit">Salvar</Button>
 
-            <Button type="button" variant="destructive" onClick={handleDelete}>
-              Excluir
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" variant="destructive">
+                  Excluir
+                </Button>
+              </AlertDialogTrigger>
+
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                  <AlertDialogDescription>A etapa será deletado da receita</AlertDialogDescription>
+                </AlertDialogHeader>
+
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </form>
       </SheetContent>

@@ -71,7 +71,7 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
   async function handleDelete() {
     if (!recipe?.id) return;
 
-    await deleteRecipe(recipeId);
+    await deleteRecipe(recipe.id);
 
     await setOpen(false);
     reset();
