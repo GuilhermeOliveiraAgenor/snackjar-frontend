@@ -25,6 +25,18 @@ import { EditIngredientFormData, editIngredientSchema } from "../schemas/edit-in
 import { useParams } from "next/navigation";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { measurementUnitLabels } from "@/lib/measurementUnitLabels";
+import { useDeleteIngredient } from "../hooks/useDeleteIngredient";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type IngredientSheetProps = {
   children?: React.ReactNode;
@@ -66,6 +78,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
   }, [ingredient, open, reset]);
   const { editIngredient } = useEditIngredient(recipeId);
   const { createIngredient } = useCreateIngredient(recipeId);
+  const { deleteIngredient } = useDeleteIngredient(recipeId);
 
   async function onSubmit(data: FormData) {
     if (mode === "edit") {
@@ -73,6 +86,14 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     } else {
       await createIngredient({ recipeId, ...(data as CreateIngredientFormData) });
     }
+    setOpen(false);
+    reset();
+  }
+  async function handleDelete() {
+    if (!ingredient?.id) return;
+
+    await deleteIngredient(ingredient.id);
+
     setOpen(false);
     reset();
   }
@@ -153,9 +174,27 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
             <Button type="submit">Salvar</Button>
 
             {mode !== "create" && (
-              <Button type="button" variant="destructive">
-                Excluir
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button type="button" variant="destructive">
+                    Excluir
+                  </Button>
+                </AlertDialogTrigger>
+
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      O ingrediente será deletado da receita
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
         </form>

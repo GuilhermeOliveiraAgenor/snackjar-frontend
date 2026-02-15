@@ -92,12 +92,12 @@ export default function RecipeDetails() {
                     <span className="flex-1 min-w-0 break-all">
                       {step.step}. {step.description}
                     </span>
-                    <StepSheet step={step} />
+                    <StepSheet step={step} mode="edit" />
                   </div>
                 </li>
               ))}
             </ul>
-            <StepSheet>
+            <StepSheet mode="create">
               <div className="absolute bottom-4 right-4">
                 <div className="flex items-center gap-2 cursor-pointer">
                   <span className="text-sm font-medium">Adicionar</span>

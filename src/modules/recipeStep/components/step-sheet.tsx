@@ -11,9 +11,10 @@ type StepSheetProps = {
     step: number;
     description: string;
   };
+  mode: "create" | "edit";
 };
 
-export function StepSheet({ children, step }: StepSheetProps) {
+export function StepSheet({ children, step, mode }: StepSheetProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
