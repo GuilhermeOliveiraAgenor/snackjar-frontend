@@ -1,7 +1,7 @@
 import z from "zod";
-import { baseIngredientSchema } from "./base-recipe-schema";
+import { baseRecipeSchema } from "./base-recipe-schema";
 
-export const editRecipeSchema = baseIngredientSchema.extend({
+export const editRecipeSchema = baseRecipeSchema.extend({
   id: z.string(),
 });
 

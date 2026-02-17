@@ -118,7 +118,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
               <Label htmlFor="step">Etapa</Label>
               <Input
                 id="step"
-                maxLength={4}
+                maxLength={4} 
                 {...register("step", { valueAsNumber: true })}
                 placeholder="1"
                 className="w-14"
