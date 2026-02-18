@@ -5,6 +5,6 @@ export const baseStepSchema = z.object({
   description: z
     .string()
     .trim()
-    .min(1, "Digite no mínimo 1 caractere")
+    .min(1, "Digite no mínimo um caractere")
     .max(50, "Máximo de 50 caracteres "),
 });

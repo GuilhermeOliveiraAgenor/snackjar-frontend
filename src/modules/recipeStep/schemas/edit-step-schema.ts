@@ -5,4 +5,6 @@ export const editStepSchema = baseStepSchema.extend({
   id: z.string(),
 });
 
-export type EditStepFormData = z.infer<typeof editStepSchema>;
+
+export type EditStepFormInput = z.input<typeof editStepSchema>;
+export type EditStepFormData = z.output<typeof editStepSchema>;

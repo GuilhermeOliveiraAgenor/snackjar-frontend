@@ -3,4 +3,5 @@ import { baseStepSchema } from "./base-step-schema";
 
 export const createStepSchema = baseStepSchema;
 
-export type CreateStepFormData = z.infer<typeof createStepSchema>;
+export type CreateStepFormInput = z.input<typeof createStepSchema>;
+export type CreateStepFormData = z.output<typeof createStepSchema>;

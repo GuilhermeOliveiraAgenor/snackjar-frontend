@@ -1,5 +1,4 @@
 import { api } from "@/lib/api";
-import { CreateRecipeFormData } from "../schemas/create-recipe-schema";
 
 export interface CreateRecipeRequest {
   title: string;
@@ -20,11 +19,10 @@ export interface CreateRecipeRequest {
 }
 
 export async function createRecipe(data: CreateRecipeRequest) {
- const result = await api("/recipes", {
+  const result = await api("/recipes", {
     method: "POST",
     data,
   });
 
-  return result.data.data
+  return result.data.data;
 }
-

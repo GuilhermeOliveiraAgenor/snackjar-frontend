@@ -3,8 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MoreHorizontal } from "lucide-react";
-import { CreateStepFormData, createStepSchema } from "../schemas/create-step-schema";
-import { EditStepFormData, editStepSchema } from "../schemas/edit-step-schema";
+import { CreateStepFormData, CreateStepFormInput, createStepSchema } from "../schemas/create-step-schema";
+import { EditStepFormData, EditStepFormInput, editStepSchema } from "../schemas/edit-step-schema";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,6 +34,7 @@ type StepSheetProps = {
   mode: "create" | "edit";
 };
 
+type FormInput = CreateStepFormInput | EditStepFormInput;
 type FormData = CreateStepFormData | EditStepFormData;
 
 export function StepSheet({ children, step, mode }: StepSheetProps) {
@@ -42,14 +43,23 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
 
   const [open, setOpen] = useState(false);
 
+ const isEdit = mode === "edit";
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(mode === "edit" ? editStepSchema : createStepSchema),
+  } = useForm<FormInput, any, FormData>({
+    resolver: zodResolver(
+      isEdit ? editStepSchema : createStepSchema
+    ) as any,
+    defaultValues: {
+      step: 1,
+      description: "",
+    } as FormInput,
   });
+
   useEffect(() => {
     if (step && open) {
       reset({
@@ -65,15 +75,11 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
   const { deleteStep } = useDeleteStep(recipeId);
 
   async function onSubmit(data: FormData) {
-    if (mode === "edit") {
+    if (isEdit) {
       await editStep(data as EditStepFormData);
-    } else if (mode === "create") {
-      await createStep({ recipeId, ...(data as CreateStepFormData) });
     } else {
-      if (!step?.id) return;
-
-      await deleteStep(step.id);
-    }
+      await createStep({ recipeId, ...(data as CreateStepFormData) });
+    } 
     setOpen(false);
     reset();
   }
@@ -153,7 +159,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                  <AlertDialogDescription>A etapa será deletado da receita</AlertDialogDescription>
+                  <AlertDialogDescription>A etapa será deletada da receita</AlertDialogDescription>
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>

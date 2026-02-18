@@ -9,13 +9,12 @@ export const createRecipeSchema = z.object({
 
   preparationTime: z.number("Digite um número"),
 
-  categoryId: z.string().min(1,"Selecione uma categoria"),
+  categoryId: z.string().min(1, "Selecione uma categoria"),
 
   recipeIngredient: z.array(baseIngredientSchema),
 
   recipeStep: z.array(baseStepSchema),
-
-})
+});
 
 export type CreateRecipeFormInput = z.input<typeof createRecipeSchema>;
 
