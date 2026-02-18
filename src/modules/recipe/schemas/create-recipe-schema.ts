@@ -9,7 +9,7 @@ export const createRecipeSchema = z.object({
 
   preparationTime: z.number("Digite um número"),
 
-  categoryId: z.string(),
+  categoryId: z.string().min(1,"Selecione uma categoria"),
 
   recipeIngredient: z.array(baseIngredientSchema),
 

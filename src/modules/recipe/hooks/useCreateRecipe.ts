@@ -9,9 +9,10 @@ export function useCreateRecipe(){
   const router = useRouter()
     const mutation = useMutation({
       mutationFn: createRecipe,
-      onSuccess: () =>{
+      onSuccess: (data) =>{
         toast.success("Receita cadastrada com sucesso")
-        router.push("/menu")
+        router.push(`/recipe/${data.id}`)
+
       },
       onError: (error: AxiosError<ApiError>) => {
         toast.error(error.message);

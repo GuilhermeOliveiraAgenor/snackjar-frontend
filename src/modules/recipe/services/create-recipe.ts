@@ -20,9 +20,11 @@ export interface CreateRecipeRequest {
 }
 
 export async function createRecipe(data: CreateRecipeRequest) {
-  return api("/recipes", {
+ const result = await api("/recipes", {
     method: "POST",
     data,
   });
+
+  return result.data.data
 }
 

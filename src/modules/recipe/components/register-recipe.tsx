@@ -183,27 +183,50 @@
 
                     <Field>
                       <FieldLabel>Categoria</FieldLabel>
+<Controller
+  control={control}
+  name="categoryId"
+  render={({ field, fieldState }) => {
+    const selectedCategory = categories?.find(
+      (c) => c.id === field.value
+    );
 
-                      <Combobox>
-                        <ComboboxInput placeholder="Selecione a categoria" />
+    return (
+      <>
+        <Combobox value={field.value} onValueChange={field.onChange}>
+          <ComboboxInput
+            placeholder="Selecione a categoria"
+            value={selectedCategory?.name || ""}
+            readOnly
+            className={fieldState.error ? "border-red-500" : ""}
+          />
 
-                        <ComboboxContent>
-                          <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+          <ComboboxContent>
+            <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
 
-                          <ComboboxList>
-                            {categories?.map((category) => (
-                              <ComboboxItem
-                                key={category.id}
-                                value={category.id}
-                                onSelect={() => setValue("categoryId", category.id)}
-                              >
-                                {category.name}
-                              </ComboboxItem>
-                            ))}
-                          </ComboboxList>
-                        </ComboboxContent>
-                      </Combobox>
-                      {errors.categoryId && <span className="text-sm text-red-500">{errors.categoryId.message}</span>}
+            <ComboboxList>
+              {categories?.map((category) => (
+                <ComboboxItem
+                  key={category.id}
+                  value={category.id}
+                >
+                  {category.name}
+                </ComboboxItem>
+              ))}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+
+        {fieldState.error && (
+          <p className="text-red-500 text-sm mt-1">
+            {fieldState.error.message}
+          </p>
+        )}
+      </>
+    );
+  }}
+/>
+
 
                       <FieldSeparator />
                     </Field>
