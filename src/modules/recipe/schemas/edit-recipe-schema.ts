@@ -7,4 +7,3 @@ export const editRecipeSchema = baseRecipeSchema.extend({
 
 export type EditRecipeFormInput = z.input<typeof editRecipeSchema>;
 export type EditRecipeFormData = z.output<typeof editRecipeSchema>;
-

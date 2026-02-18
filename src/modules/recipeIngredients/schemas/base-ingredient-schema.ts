@@ -1,5 +1,5 @@
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
-import {z} from "zod";
+import { z } from "zod";
 
 export const baseIngredientSchema = z.object({
   ingredient: z.string().min(1, "Digite no mínimo um caractere").max(50, "Máximo de 50 caracteres"),

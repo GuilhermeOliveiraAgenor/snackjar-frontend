@@ -22,7 +22,11 @@ import {
   CreateIngredientFormInput,
   createIngredientSchema,
 } from "../schemas/create-ingredient-schema";
-import { EditIngredientFormData, EditIngredientFormInput, editIngredientSchema } from "../schemas/edit-ingredient-schema";
+import {
+  EditIngredientFormData,
+  EditIngredientFormInput,
+  editIngredientSchema,
+} from "../schemas/edit-ingredient-schema";
 import { useParams } from "next/navigation";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { measurementUnitLabels } from "@/lib/measurementUnitLabels";
@@ -50,7 +54,6 @@ type IngredientSheetProps = {
   mode?: "create" | "edit";
 };
 
-
 type FormInput = CreateIngredientFormInput | EditIngredientFormInput;
 type FormData = CreateIngredientFormData | EditIngredientFormData;
 export function IngredientSheet({ children, ingredient, mode }: IngredientSheetProps) {
@@ -59,7 +62,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
 
   const [open, setOpen] = useState(false);
 
-   const isEdit = mode === "edit";
+  const isEdit = mode === "edit";
 
   const {
     register,
@@ -67,14 +70,13 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     control,
     reset,
     formState: { errors },
-  } = useForm<FormInput, any, FormData>({
-    resolver: zodResolver(
-      isEdit ? editIngredientSchema : createIngredientSchema
-    ) as any,
+  } = useForm<FormInput, unknown, FormData>({
+    resolver: zodResolver(isEdit ? editIngredientSchema : createIngredientSchema),
     defaultValues: {
       ingredient: "",
       amount: "",
       unit: undefined,
+      id: "",
     } as FormInput,
   });
   useEffect(() => {

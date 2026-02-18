@@ -8,7 +8,11 @@ import { MoreHorizontal } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { EditRecipeFormData, EditRecipeFormInput, editRecipeSchema } from "../schemas/edit-recipe-schema";
+import {
+  EditRecipeFormData,
+  EditRecipeFormInput,
+  editRecipeSchema,
+} from "../schemas/edit-recipe-schema";
 import { useEditRecipe } from "../hooks/useEditRecipe";
 import {
   AlertDialog,
@@ -45,13 +49,13 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
   const { deleteRecipe } = useDeleteRecipe();
 
   const {
-  register,
-  reset,
-  handleSubmit,
-  formState: { errors },
-} = useForm<EditRecipeFormInput, any, EditRecipeFormData>({
-  resolver: zodResolver(editRecipeSchema),
-});
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<EditRecipeFormInput, unknown, EditRecipeFormData>({
+    resolver: zodResolver(editRecipeSchema),
+  });
 
   useEffect(() => {
     if (recipe && open) {

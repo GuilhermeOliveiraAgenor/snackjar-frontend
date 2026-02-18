@@ -6,29 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useMyFavoriteRecipes } from "@/modules/favorite-recipe/hooks/useMyFavoriteRecipes";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
   const [page, setPage] = useState(1);
   const [title, setTitle] = useState(""); // input
 
-  const searchParams = useSearchParams();
-
-  const categoryId = searchParams.get("categoryId") ?? undefined;
-
-  const debounceTitle = useDebounce(title, 500); // format param
-
   const handleTitleChange = (value: string) => {
     setTitle(value);
     setPage(1);
   };
 
-  const { data, isLoading, isError } = useRecipes(page, debounceTitle, categoryId); // hook
+  const { data, isLoading, isError } = useMyFavoriteRecipes(page);
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;

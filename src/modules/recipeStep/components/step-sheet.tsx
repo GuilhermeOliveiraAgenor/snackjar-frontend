@@ -3,7 +3,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MoreHorizontal } from "lucide-react";
-import { CreateStepFormData, CreateStepFormInput, createStepSchema } from "../schemas/create-step-schema";
+import {
+  CreateStepFormData,
+  CreateStepFormInput,
+  createStepSchema,
+} from "../schemas/create-step-schema";
 import { EditStepFormData, EditStepFormInput, editStepSchema } from "../schemas/edit-step-schema";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,17 +47,15 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
 
   const [open, setOpen] = useState(false);
 
- const isEdit = mode === "edit";
+  const isEdit = mode === "edit";
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormInput, any, FormData>({
-    resolver: zodResolver(
-      isEdit ? editStepSchema : createStepSchema
-    ) as any,
+  } = useForm<FormInput, unknown, FormData>({
+    resolver: zodResolver(isEdit ? editStepSchema : createStepSchema),
     defaultValues: {
       step: 1,
       description: "",
@@ -79,7 +81,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
       await editStep(data as EditStepFormData);
     } else {
       await createStep({ recipeId, ...(data as CreateStepFormData) });
-    } 
+    }
     setOpen(false);
     reset();
   }
@@ -124,7 +126,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
               <Label htmlFor="step">Etapa</Label>
               <Input
                 id="step"
-                maxLength={4} 
+                maxLength={4}
                 {...register("step", { valueAsNumber: true })}
                 placeholder="1"
                 className="w-14"
