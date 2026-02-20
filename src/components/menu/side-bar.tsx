@@ -51,7 +51,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild>
-                  <a href="#" className="flex items-center w-full">
+                  <a href="/me/favorites" className="flex items-center w-full">
                     <span>Favoritas</span>
                   </a>
                 </SidebarMenuSubButton>

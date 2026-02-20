@@ -7,7 +7,6 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { useMyFavoriteRecipes } from "@/modules/favorite-recipe/hooks/useMyFavoriteRecipes";
-import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -61,32 +60,18 @@ export default function Page() {
           </div>
         </header>
         <div className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5 transition">
-          <Input
-            className="
-            w-full
-            sm:max-w-sm
-            md:max-w-md
-            lg:max-w-lg
-            bg-white
-            h-10 "
-            value={title}
-            onChange={(e) => handleTitleChange(e.target.value)}
-            placeholder="O que vamos cozinhar hoje ?"
-          />
-
-          <Search className="text-white w-9 h-9 ml-3" />
+          <div className="text-2xl text-red-50 font-medium">Meus Favoritos</div>
         </div>
         <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
-          {!statusMessage &&
-            data.data.map((recipe) => (
-              <CardSmall
-                key={recipe.id}
-                id={recipe.id}
-                title={recipe.title}
-                description={recipe.description}
-                preparationTime={recipe.preparationTime}
-              />
-            ))}
+          {data?.data.map((fav) => (
+            <CardSmall
+              key={fav.id}
+              id={fav.id}
+              title={fav.recipe.title}
+              description={fav.recipe.description}
+              preparationTime={fav.recipe.preparationTime}
+            />
+          ))}
         </div>
         <div className="flex items-center justify-center gap-2">
           {showSpinner && <Spinner />}

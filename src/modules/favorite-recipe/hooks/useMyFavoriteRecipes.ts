@@ -4,7 +4,7 @@ import { PaginatedResponse } from "@/modules/types/pagination";
 
 export function useMyFavoriteRecipes(page: number) {
   return useQuery<PaginatedResponse<FavoriteRecipe>>({
-    queryKey: ["favorite-recipes"],
+    queryKey: ["favorite-recipes", page],
     queryFn: () => fetchMyFavoriteRecipes(page),
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
