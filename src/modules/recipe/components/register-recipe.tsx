@@ -22,7 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   CreateRecipeFormData,
@@ -34,19 +33,9 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useCreateRecipe } from "../hooks/useCreateRecipe";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { useCategories } from "@/modules/category/hooks/useCategories";
-
-const categories = [
-  { id: "1", name: "Doce" },
-  { id: "2", name: "Salgado" },
-  { id: "3", name: "Almoço" },
-  { id: "4", name: "Jantar" },
-  { id: "5", name: "Café da Manhã" },
-] as const;
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RegisterRecipe() {
-  const [text, setText] = useState("");
-  const [preparationTime, setPreparationTime] = useState("");
-
   const { createRecipe } = useCreateRecipe();
   const { categories } = useCategories();
 
@@ -57,7 +46,7 @@ export default function RegisterRecipe() {
     setValue,
     watch,
     formState: { errors },
-  } = useForm<CreateRecipeFormInput, any, CreateRecipeFormData>({
+  } = useForm<CreateRecipeFormInput, unknown, CreateRecipeFormData>({
     resolver: zodResolver(createRecipeSchema),
     defaultValues: {
       title: "",
@@ -113,19 +102,19 @@ export default function RegisterRecipe() {
   const description = watch("description") || "";
 
   const onSubmit = async (data: CreateRecipeFormData) => {
-    console.log(data);
     await createRecipe(data);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40 p-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 p-4">
+      <SidebarTrigger className="absolute top-8 left-6 sm:top-4 sm:left-4" />
       <Card className="w-full max-w-2xl shadow-lg px-8">
         <CardHeader>
           <CardTitle className="text-center text-2xl">Cadastrar Receita</CardTitle>
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit, (errors) => console.log(errors))}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <FieldGroup>
               <FieldSet>
                 <FieldGroup>
@@ -198,7 +187,9 @@ export default function RegisterRecipe() {
                               />
 
                               <ComboboxContent>
-                                <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                                {categories?.length === 0 && (
+                                  <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                                )}
 
                                 <ComboboxList>
                                   {categories?.map((category) => (
@@ -225,7 +216,7 @@ export default function RegisterRecipe() {
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
-                      <div className="flex-[3]">Nome</div>
+                      <div className="flex-3">Nome</div>
                       <div className="w-16 sm:w-20 text-center">Qtd</div>
                       <div className="w-20 sm:w-24 text-center">Unidade</div>
                     </div>
@@ -237,7 +228,7 @@ export default function RegisterRecipe() {
                             maxLength={50}
                             placeholder="Farinha"
                             {...register(`recipeIngredient.${index}.ingredient`)}
-                            className="flex-[3]"
+                            className="flex-3"
                           />
                           <Input
                             type="text"

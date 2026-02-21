@@ -26,21 +26,21 @@ export default function RecipeDetails() {
     <div className="min-h-screen flex flex-col items-center gap-10 p-4 sm:p-8">
       <Card className="w-full max-w-5xl text-center shadow-lg">
         <CardHeader className="relative pt-6 pb-8 px-4 sm:px-8">
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-2 right-3 sm:top-4 sm:right-4">
             <RecipeSheet recipe={data.recipe}>
               <div className="cursor-pointer">
-                <MoreHorizontal />
+                <MoreHorizontal className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
             </RecipeSheet>
           </div>
 
-          <CardTitle className="text-2xl sm:text-4xl font-bold break-words">
+          <CardTitle className="text-2xl sm:text-4xl font-bold break-all">
             {data.recipe.title}
           </CardTitle>
 
-          <p className="mt-2 break-words">Tempo de preparo: {data.recipe.preparationTime} min</p>
+          <p className="mt-2 break-all">Tempo de preparo: {data.recipe.preparationTime} min</p>
 
-          <p className="text-base sm:text-xl text-muted-foreground break-words">
+          <p className="text-base sm:text-xl text-muted-foreground break-all">
             {data.recipe.description}
           </p>
         </CardHeader>

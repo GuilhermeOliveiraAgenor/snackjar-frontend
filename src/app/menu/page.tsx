@@ -3,7 +3,6 @@ import { CardSmall } from "@/components/menu/card";
 import { AppSidebar } from "@/components/menu/side-bar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -59,10 +58,9 @@ export default function Page() {
     >
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 px-6 py-13">
-          <SidebarTrigger className="-ml- 1" />
-          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-          <div className="flex-1 flex justify-center items-center text-3xl font-bold tracking-wide text-primary rounded-2xl shadow-xl shadow-black/17 px-2 py-4">
+        <header className="relative flex h-16 shrink-0 items-center px-4 sm:px-6 sm:mb-2">
+          <SidebarTrigger className="absolute left-4 sm:left-6" />
+          <div className="flex-1 flex justify-center items-center text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-primary">
             <h1>
               <Link href="/menu" className="hover:opacity-80 transition">
                 SNACK JAR
@@ -73,12 +71,11 @@ export default function Page() {
         <div className="mx-auto w-full max-w-10xl h-40 bg-orange-500 rounded-2xl flex items-center justify-center px-4 shadow-md hover:-translate-y-0.5 transition">
           <Input
             className="
-            w-full
-            sm:max-w-sm
-            md:max-w-md
-            lg:max-w-lg
-            bg-white
-            h-10 "
+           w-full
+      max-w-67.5 sm:max-w-sm md:max-w-md lg:max-w-lg
+      bg-white
+      h-9 sm:h-10
+      text-sm sm:text-base"
             value={title}
             onChange={(e) => handleTitleChange(e.target.value)}
             placeholder="O que vamos cozinhar hoje ?"

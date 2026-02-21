@@ -20,7 +20,7 @@ import { useCategories } from "@/modules/category/hooks/useCategories";
 import Link from "next/link";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { categories, isLoading } = useCategories();
+  const { categories } = useCategories();
 
   return (
     <Sidebar variant="floating" {...props}>
@@ -56,20 +56,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </a>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
-
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton asChild>
-                  <a href="#" className="flex items-center w-full">
-                    <span>Rápidas (até 15 min)</span>
-                  </a>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild>
                   <Link href="/register" className="flex items-center w-full justify-between">
                     <span>Adicionar nova receita</span>
-
                     <Plus className="h-4 w-4" />
                   </Link>
                 </SidebarMenuSubButton>

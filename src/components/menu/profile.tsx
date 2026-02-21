@@ -12,18 +12,19 @@ import {
 } from "../ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { CircleUserRound, LogOut, Settings } from "lucide-react";
+import { useLogout } from "@/modules/user/hooks/useLogout";
 
 export function NavUser() {
   const { user } = useMe();
+  const { logout, loading } = useLogout();
   const { isMobile } = useSidebar();
 
   if (!user) {
     return null;
   }
 
-  // Não logado
-  if (!user) {
-    return null;
+  async function handleLogout() {
+    await logout();
   }
 
   return (
@@ -58,9 +59,9 @@ export function NavUser() {
                 Conta
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout} disabled={loading}>
                 <LogOut />
-                Sair
+                {loading ? "Saindo..." : "Sair"}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
