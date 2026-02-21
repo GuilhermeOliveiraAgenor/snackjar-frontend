@@ -7,6 +7,5 @@ export function useRecipeDetails(recipeId: string) {
     queryKey: ["recipe-details", recipeId],
     queryFn: () => getRecipeDetailsByRecipeId(recipeId),
     staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
   });
 }

@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Spinner } from "@/components/ui/spinner";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useMyFavoriteRecipes } from "@/modules/favorite-recipe/hooks/useMyFavoriteRecipes";
 import { useRecipes } from "@/modules/recipe/hooks/useRecipes";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
@@ -29,6 +30,8 @@ export default function Page() {
   };
 
   const { data, isLoading, isError } = useRecipes(page, debounceTitle, categoryId); // hook
+  const { data: favoriteRecipes } = useMyFavoriteRecipes(1);
+  const favorites = favoriteRecipes?.data;
 
   let statusMessage: React.ReactNode = null;
   let showSpinner = false;
@@ -85,15 +88,21 @@ export default function Page() {
         </div>
         <div className="mx-auto w-full max-w-10xl grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10 px-4 py-10">
           {!statusMessage &&
-            data.data.map((recipe) => (
-              <CardSmall
-                key={recipe.id}
-                id={recipe.id}
-                title={recipe.title}
-                description={recipe.description}
-                preparationTime={recipe.preparationTime}
-              />
-            ))}
+            data.data.map((recipe) => {
+              const favorite = favorites?.find((f) => f.recipeId === recipe.id);
+
+              return (
+                <CardSmall
+                  key={recipe.id}
+                  id={recipe.id}
+                  title={recipe.title}
+                  description={recipe.description}
+                  preparationTime={recipe.preparationTime}
+                  isFavorite={!!favorite}
+                  favoriteId={favorite?.id}
+                />
+              );
+            })}
         </div>
         <div className="flex items-center justify-center gap-2">
           {showSpinner && <Spinner />}

@@ -11,6 +11,6 @@ export function useRecipes(page: number, title?: string, categoryId?: string) {
 
     queryFn: () => fetchMyRecipes(page, title, categoryId),
 
-    staleTime: 1000 * 60 * 5, // cache
+    staleTime: 1000 * 60 * 2, // cache
   });
 }

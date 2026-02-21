@@ -1,4 +1,4 @@
-interface FavoriteRecipe {
+interface FavoriteRecipeDetails {
   id: string;
   recipeId: string;
   createdBy: string;
