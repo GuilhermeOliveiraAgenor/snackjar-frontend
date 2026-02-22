@@ -8,8 +8,8 @@ const envSchema = z.object({
 
 const _env = {
   NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
   NODE_ENV: process.env.NODE_ENV,
-  NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
 };
 
 const parsed = envSchema.safeParse(_env);

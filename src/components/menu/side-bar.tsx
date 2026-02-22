@@ -52,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton asChild>
                   <a href="/me/favorites" className="flex items-center w-full">
-                    <span>Favoritas</span>
+                    <span>Favoritos</span>
                   </a>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>

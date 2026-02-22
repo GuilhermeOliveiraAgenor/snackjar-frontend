@@ -10,14 +10,16 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
 import { useLogin } from "../hooks/useLogin";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "../schemas/login-schema";
+import { useGoogleLogin } from "../hooks/useGoogleLogin";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginForm() {
   const { login, loading } = useLogin(); // hook
+  const { loginWithGoogle, isLoading } = useGoogleLogin();
 
   const {
     register,
@@ -64,10 +66,20 @@ export default function LoginForm() {
         <Button type="submit">{loading ? "Entrando..." : "Login"}</Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
         <Field>
-          <Button variant="outline" type="button">
-            <FcGoogle size={100} />
-            Login com Google
-          </Button>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              if (!credentialResponse.credential) return;
+
+              loginWithGoogle({
+                token: credentialResponse.credential,
+              });
+            }}
+            theme="outline"
+            size="large"
+            shape="pill"
+            text="signin_with"
+            width="100%"
+          ></GoogleLogin>
           <FieldDescription className="text-center">
             Não tem cadastro ?
             <a href="#" className="underline underline-offset-4 px-2">

@@ -89,7 +89,7 @@ export default function RecipeDetails() {
               {data.steps.map((step) => (
                 <li key={step.id} className="group">
                   <div className="flex items-start gap-4">
-                    <span className="flex-1 min-w-0 break-all">
+                    <span className="flex-1 min-w-0 nom run-all">
                       {step.step}. {step.description}
                     </span>
                     <StepSheet step={step} mode="edit" />
