@@ -1,0 +1,29 @@
+import axios from "axios";
+import { env } from "./env";
+
+//create instance axios
+export const api = axios.create({
+  baseURL: env.NEXT_PUBLIC_API_URL,
+  withCredentials: true, // cookie token
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+api.interceptors.response.use(
+  (response) => response,
+
+  (error) => {
+    if (error.response?.status === 401) {
+      if (typeof window !== "undefined") {
+        const currentPath = window.location.pathname;
+
+        if (currentPath !== "/login") {
+          window.location.href = "/login";
+        }
+      }
+    }
+
+    return Promise.reject(error.response?.data || error);
+  }
+);

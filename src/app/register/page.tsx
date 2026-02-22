@@ -1,6 +1,6 @@
 import { AppSidebar } from "@/components/menu/side-bar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import RecipeDetails from "@/modules/recipe/components/recipe-details";
+import RegisterRecipe from "@/modules/recipe/components/register-recipe";
 
 export default function Page() {
   return (
@@ -13,7 +13,7 @@ export default function Page() {
     >
       <AppSidebar />
       <SidebarInset>
-        <RecipeDetails />
+        <RegisterRecipe />
       </SidebarInset>
     </SidebarProvider>
   );
