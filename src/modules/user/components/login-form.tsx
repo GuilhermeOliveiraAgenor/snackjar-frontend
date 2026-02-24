@@ -19,7 +19,7 @@ import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginForm() {
   const { login, loading } = useLogin(); // hook
-  const { loginWithGoogle, isLoading } = useGoogleLogin();
+  const { loginWithGoogle } = useGoogleLogin();
 
   const {
     register,

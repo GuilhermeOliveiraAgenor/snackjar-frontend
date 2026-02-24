@@ -13,6 +13,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { CircleUserRound, LogOut, Settings } from "lucide-react";
 import { useLogout } from "@/modules/user/hooks/useLogout";
+import Link from "next/link";
 
 export function NavUser() {
   const { user } = useMe();
@@ -55,8 +56,10 @@ export function NavUser() {
           >
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CircleUserRound />
-                Conta
+                <Link href="/me/profile" className="flex items-center gap-2">
+                  <CircleUserRound />
+                  Conta
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout} disabled={loading}>
