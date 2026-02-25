@@ -38,8 +38,12 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage
+                  src={user?.avatarUrl ?? "/profile.png"}
+                  alt="profile"
+                  width={75}
+                  height={75}
+                ></AvatarImage>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -55,9 +59,9 @@ export function NavUser() {
             sideOffset={16}
           >
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link href="/me/profile" className="flex items-center gap-2">
-                  <CircleUserRound />
+                  <CircleUserRound className="w-4 h-4" />
                   Conta
                 </Link>
               </DropdownMenuItem>
