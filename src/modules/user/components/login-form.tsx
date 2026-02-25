@@ -16,10 +16,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "../schemas/login-schema";
 import { useGoogleLogin } from "../hooks/useGoogleLogin";
 import { GoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
+import { useRef } from "react";
 
 export default function LoginForm() {
   const { login, loading } = useLogin(); // hook
   const { loginWithGoogle } = useGoogleLogin();
+  const googleButtonRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -66,20 +69,35 @@ export default function LoginForm() {
         <Button type="submit">{loading ? "Entrando..." : "Login"}</Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
         <Field>
-          <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              if (!credentialResponse.credential) return;
-
-              loginWithGoogle({
-                token: credentialResponse.credential,
-              });
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full flex items-center justify-center gap-2"
+            onClick={() => {
+              const button = googleButtonRef.current?.querySelector(
+                "div[role=button]"
+              ) as HTMLElement;
+              button?.click();
             }}
-            theme="outline"
-            size="large"
-            shape="pill"
-            text="signin_with"
-            width="100%"
-          ></GoogleLogin>
+          >
+            <FcGoogle size={20} />
+            Entrar com Google
+          </Button>
+          <div ref={googleButtonRef} className="hidden">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                if (!credentialResponse.credential) return;
+
+                loginWithGoogle({
+                  token: credentialResponse.credential,
+                });
+              }}
+              theme="outline"
+              size="large"
+              shape="pill"
+              width="100%"
+            />
+          </div>
           <FieldDescription className="text-center">
             Não tem cadastro ?
             <a href="#" className="underline underline-offset-4 px-2">

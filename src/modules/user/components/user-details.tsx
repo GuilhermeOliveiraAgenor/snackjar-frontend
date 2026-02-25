@@ -24,8 +24,8 @@ export default function UserDetails() {
                 <Image
                   src={user?.avatarUrl || "/profile.png"}
                   alt="profile"
-                  width={75}
-                  height={75}
+                  width={96}
+                  height={96}
                 />
                 <Field>
                   <FieldLabel htmlFor="name">Nome</FieldLabel>
