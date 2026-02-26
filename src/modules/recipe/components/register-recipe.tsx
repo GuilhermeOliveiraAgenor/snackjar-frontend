@@ -36,7 +36,7 @@ import { useCategories } from "@/modules/category/hooks/useCategories";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RegisterRecipe() {
-  const { createRecipe } = useCreateRecipe();
+  const { createRecipe, loading } = useCreateRecipe();
   const { categories } = useCategories();
 
   const {
@@ -346,8 +346,8 @@ export default function RegisterRecipe() {
                     </div>
                   </Field>
                   <Field orientation="horizontal" className="flex flex-1 justify-center py-4">
-                    <Button type="submit" className="w-32">
-                      Salvar
+                    <Button type="submit" className="w-32" disabled={loading}>
+                      {loading ? "Salvando" : "Salvar"}
                     </Button>
                     <Button variant="outline" type="button">
                       Cancelar

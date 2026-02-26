@@ -16,7 +16,6 @@ export default function UserDetails() {
         <CardHeader>
           <CardTitle className="text-center text-2xl">Meu Perfil</CardTitle>
         </CardHeader>
-
         <CardContent>
           <FieldGroup>
             <FieldSet>

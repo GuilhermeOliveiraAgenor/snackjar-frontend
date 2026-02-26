@@ -45,8 +45,8 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
 
   const [open, setOpen] = useState(false);
 
-  const { editRecipe } = useEditRecipe(recipeId);
-  const { deleteRecipe } = useDeleteRecipe();
+  const { editRecipe, loadingEdit } = useEditRecipe(recipeId);
+  const { deleteRecipe, loadingDelete } = useDeleteRecipe();
 
   const {
     register,
@@ -155,7 +155,9 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
             <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-              <Button type="submit">Salvar</Button>
+              <Button type="submit" disabled={loadingEdit}>
+                {loadingEdit ? "Salvando" : "Salvar"}
+              </Button>
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
@@ -172,7 +174,9 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
 
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
+                    <AlertDialogAction onClick={handleDelete} disabled={loadingDelete}>
+                      Confirmar
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>

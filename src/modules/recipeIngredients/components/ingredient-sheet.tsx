@@ -90,9 +90,9 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     }
   }, [ingredient, open, reset]);
 
-  const { createIngredient } = useCreateIngredient(recipeId);
-  const { editIngredient } = useEditIngredient(recipeId);
-  const { deleteIngredient } = useDeleteIngredient(recipeId);
+  const { createIngredient, loadingCreate } = useCreateIngredient(recipeId);
+  const { editIngredient, loadingEdit } = useEditIngredient(recipeId);
+  const { deleteIngredient, loadingDelete } = useDeleteIngredient(recipeId);
 
   async function onSubmit(data: FormData) {
     if (mode === "edit") {
@@ -202,7 +202,9 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit">Salvar</Button>
+            <Button type="submit" disabled={loadingCreate}>
+              {loadingCreate ? "Salvando" : "Salvar"}
+            </Button>
 
             {mode !== "create" && (
               <AlertDialog>

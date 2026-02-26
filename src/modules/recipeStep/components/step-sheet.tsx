@@ -72,9 +72,9 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
     }
   }, [step, open, reset]);
 
-  const { createStep } = useCreateStep(recipeId);
-  const { editStep } = useEditStep(recipeId);
-  const { deleteStep } = useDeleteStep(recipeId);
+  const { createStep, loadingCreate } = useCreateStep(recipeId);
+  const { editStep, loadingEdit } = useEditStep(recipeId);
+  const { deleteStep, loadingDelete } = useDeleteStep(recipeId);
 
   async function onSubmit(data: FormData) {
     if (isEdit) {
@@ -149,8 +149,9 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit">Salvar</Button>
-
+            <Button type="submit" disabled={loadingCreate}>
+              {loadingCreate ? "Salvando" : "Salvar"}
+            </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button type="button" variant="destructive">

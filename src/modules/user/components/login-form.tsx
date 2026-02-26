@@ -66,7 +66,9 @@ export default function LoginForm() {
           />
           {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </Field>
-        <Button type="submit">{loading ? "Entrando..." : "Login"}</Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Entrando..." : "Login"}
+        </Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
         <Field>
           <Button
