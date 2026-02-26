@@ -102,7 +102,7 @@ export default function LoginForm() {
           </div>
           <FieldDescription className="text-center">
             Não tem cadastro ?
-            <a href="/signup" className="underline underline-offset-4 px-2">
+            <a href="#" className="underline underline-offset-4 px-2">
               Cadastre-se
             </a>
           </FieldDescription>
