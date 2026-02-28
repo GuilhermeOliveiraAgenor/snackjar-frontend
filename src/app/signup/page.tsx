@@ -14,10 +14,17 @@ export default function SignUpForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
+    mode: "onSubmit",
   });
+
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
+
+  const isPasswordMatch = password === confirmPassword;
 
   async function onSubmit(data: UserFormData) {
     await create(data);
@@ -34,6 +41,7 @@ export default function SignUpForm() {
             <h1 className="text-3xl font-bold">Faça parte do SnackJar</h1>
             <p className="text-muted-foreground text-md text-balance">Digite seus dados</p>
           </div>
+
           <Field className="flex flex-col gap-2">
             <FieldLabel htmlFor="name">Nome</FieldLabel>
             <Input
@@ -43,7 +51,9 @@ export default function SignUpForm() {
               className="w-full h-12 text-base"
               {...register("name")}
             />
+            {errors.name && <span className="text-sm text-red-500">{errors.name.message}</span>}
           </Field>
+
           <FieldLabel htmlFor="">Email</FieldLabel>
           <Field className="flex flex-col gap-2">
             <Input
@@ -53,7 +63,9 @@ export default function SignUpForm() {
               className="w-full h-12 text-base"
               {...register("email")}
             />
+            {errors.email && <span className="text-sm text-red-500">{errors.email.message}</span>}
           </Field>
+
           <FieldLabel htmlFor="">Senha</FieldLabel>
           <Field className="flex flex-col gap-2">
             <Input
@@ -63,14 +75,31 @@ export default function SignUpForm() {
               className="w-full h-12 text-base"
               {...register("password")}
             />
+            {errors.password && (
+              <span className="text-sm text-red-500">{errors.password.message}</span>
+            )}
           </Field>
+
           <FieldLabel htmlFor="">Confirmar Senha</FieldLabel>
           <Field className="flex flex-col gap-2">
-            <Input type="password" placeholder="************" className="w-full h-12 text-base" />
+            <Input
+              id="confirmPassword"
+              type="password"
+              placeholder="************"
+              className="w-full h-12 text-base"
+              {...register("confirmPassword")}
+            />
+
+            {/* ERRO DO ZOD */}
+            {errors.confirmPassword && (
+              <span className="text-sm text-red-500">{errors.confirmPassword.message}</span>
+            )}
           </Field>
-          <Button type="submit" className="w-full h-12 text-base">
-            Cadastrar
+
+          <Button type="submit" className="w-full h-12 text-base" disabled={loading}>
+            {loading ? "Cadastrando" : "Cadastrar"}
           </Button>
+
           <Button variant="outline" type="button" className="w-full h-12 text-base">
             <a href="/login">Voltar</a>
           </Button>

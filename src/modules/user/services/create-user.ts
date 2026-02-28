@@ -12,6 +12,5 @@ export async function createUser(data: createUserRequest) {
     data,
   });
 
-  console.log(result.data.data);
   return result.data;
 }
