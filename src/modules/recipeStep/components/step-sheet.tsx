@@ -73,8 +73,8 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
   }, [step, open, reset]);
 
   const { createStep, loadingCreate } = useCreateStep(recipeId);
-  const { editStep, loadingEdit } = useEditStep(recipeId);
-  const { deleteStep, loadingDelete } = useDeleteStep(recipeId);
+  const { editStep } = useEditStep(recipeId);
+  const { deleteStep } = useDeleteStep(recipeId);
 
   async function onSubmit(data: FormData) {
     if (isEdit) {

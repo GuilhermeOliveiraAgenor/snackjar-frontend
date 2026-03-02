@@ -1,7 +1,7 @@
 "use client";
 
 import { useMe } from "@/modules/user/hooks/useMe";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,

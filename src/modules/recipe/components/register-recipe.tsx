@@ -175,7 +175,6 @@ export default function RegisterRecipe() {
                       name="categoryId"
                       render={({ field, fieldState }) => {
                         const selectedCategory = categories?.find((c) => c.id === field.value);
-
                         return (
                           <>
                             <Combobox value={field.value} onValueChange={field.onChange}>

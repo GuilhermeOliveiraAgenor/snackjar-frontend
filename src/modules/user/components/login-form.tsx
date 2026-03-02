@@ -9,7 +9,6 @@ import {
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { useLogin } from "../hooks/useLogin";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -54,9 +53,6 @@ export default function LoginForm() {
         <Field>
           <div className="flex items-center">
             <FieldLabel htmlFor="password">Senha</FieldLabel>
-            <Link href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
-              Esqueceu sua senha ?
-            </Link>
           </div>
           <Input
             id="password"
@@ -87,6 +83,7 @@ export default function LoginForm() {
           </Button>
           <div ref={googleButtonRef} className="hidden">
             <GoogleLogin
+              width={300}
               onSuccess={(credentialResponse) => {
                 if (!credentialResponse.credential) return;
 
@@ -97,7 +94,6 @@ export default function LoginForm() {
               theme="outline"
               size="large"
               shape="pill"
-              width="100%"
             />
           </div>
           <FieldDescription className="text-center">

@@ -89,10 +89,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <span>{category.name}</span>
                       </a>
                     </SidebarMenuSubButton>
+
                     {category.items?.length ? (
                       <SidebarMenuSub className="ml-2 border-l-0 px-1.5">
                         {category.items.map((item) => (
-                          <SidebarMenuSubItem key={item.title}>
+                          <SidebarMenuSubItem key={item.id}>
                             <SidebarMenuSubButton asChild isActive={item.isActive}>
                               <a
                                 href={`/menu?categoryId=${item.id}`}

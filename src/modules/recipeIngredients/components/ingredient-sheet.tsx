@@ -19,14 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateIngredient } from "../hooks/useCreateIngredient";
 import {
   CreateIngredientFormData,
-  CreateIngredientFormInput,
   createIngredientSchema,
 } from "../schemas/create-ingredient-schema";
-import {
-  EditIngredientFormData,
-  EditIngredientFormInput,
-  editIngredientSchema,
-} from "../schemas/edit-ingredient-schema";
+import { EditIngredientFormData, editIngredientSchema } from "../schemas/edit-ingredient-schema";
 import { useParams } from "next/navigation";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { measurementUnitLabels } from "@/lib/measurementUnitLabels";
@@ -54,7 +49,6 @@ type IngredientSheetProps = {
   mode?: "create" | "edit";
 };
 
-type FormInput = CreateIngredientFormInput | EditIngredientFormInput;
 type FormData = CreateIngredientFormData | EditIngredientFormData;
 export function IngredientSheet({ children, ingredient, mode }: IngredientSheetProps) {
   const params = useParams();
@@ -63,21 +57,20 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
   const [open, setOpen] = useState(false);
 
   const isEdit = mode === "edit";
-
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm<FormInput, unknown, FormData>({
+  } = useForm<FormData>({
     resolver: zodResolver(isEdit ? editIngredientSchema : createIngredientSchema),
     defaultValues: {
       ingredient: "",
       amount: "",
       unit: undefined,
       id: "",
-    } as FormInput,
+    },
   });
   useEffect(() => {
     if (ingredient && open) {
@@ -91,8 +84,8 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
   }, [ingredient, open, reset]);
 
   const { createIngredient, loadingCreate } = useCreateIngredient(recipeId);
-  const { editIngredient, loadingEdit } = useEditIngredient(recipeId);
-  const { deleteIngredient, loadingDelete } = useDeleteIngredient(recipeId);
+  const { editIngredient } = useEditIngredient(recipeId);
+  const { deleteIngredient } = useDeleteIngredient(recipeId);
 
   async function onSubmit(data: FormData) {
     if (mode === "edit") {

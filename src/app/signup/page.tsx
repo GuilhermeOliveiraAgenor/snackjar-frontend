@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel, FieldSeparator } from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useCreateUser } from "@/modules/user/hooks/useCreateUser";
 import { UserFormData, userSchema } from "@/modules/user/schemas/create-user-schema";
@@ -14,17 +14,11 @@ export default function SignUpForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     mode: "onSubmit",
   });
-
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
-
-  const isPasswordMatch = password === confirmPassword;
 
   async function onSubmit(data: UserFormData) {
     await create(data);
