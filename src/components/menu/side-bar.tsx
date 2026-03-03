@@ -80,10 +80,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
               <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
                 {categories?.map((category) => (
-                  <SidebarMenuSubItem key={category.id.value}>
+                  <SidebarMenuSubItem key={category.id}>
                     <SidebarMenuSubButton asChild>
                       <a
-                        href={`/menu?categoryId=${category.id.value}`}
+                        href={`/menu?categoryId=${category.id}`}
                         className="flex items-center w-full"
                       >
                         <span>{category.name}</span>

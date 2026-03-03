@@ -154,33 +154,31 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-              <Button type="submit" disabled={isEditing}>
-                {isEditing ? "Salvando" : "Salvar"}
-              </Button>
+            <Button type="submit" disabled={isEditing}>
+              {isEditing ? "Salvando" : "Salvar"}
+            </Button>
 
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button type="button" variant="destructive">
-                    Excluir
-                  </Button>
-                </AlertDialogTrigger>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" variant="destructive">
+                  Excluir
+                </Button>
+              </AlertDialogTrigger>
 
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                    <AlertDialogDescription>A receita será deletada</AlertDialogDescription>
-                  </AlertDialogHeader>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                  <AlertDialogDescription>A receita será deletada</AlertDialogDescription>
+                </AlertDialogHeader>
 
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
-                      Confirmar
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
+                    Confirmar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </form>
       </SheetContent>

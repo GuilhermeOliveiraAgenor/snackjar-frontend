@@ -29,7 +29,7 @@ import {
   createRecipeSchema,
 } from "../schemas/create-recipe-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useCreateRecipe } from "../hooks/useCreateRecipe";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { useCategories } from "@/modules/category/hooks/useCategories";
@@ -44,7 +44,6 @@ export default function RegisterRecipe() {
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<CreateRecipeFormInput, unknown, CreateRecipeFormData>({
     resolver: zodResolver(createRecipeSchema),
@@ -89,9 +88,7 @@ export default function RegisterRecipe() {
   }
 
   function addSteps() {
-    const currentSteps = watch("recipeStep") as CreateRecipeFormData["recipeStep"];
-
-    const nextStep = currentSteps.length > 0 ? currentSteps[currentSteps.length - 1].step + 1 : 1;
+    const nextStep = stepFields.length > 0 ? Number(stepFields[stepFields.length - 1].step) + 1 : 1;
 
     appendStep({
       step: nextStep,
@@ -99,8 +96,11 @@ export default function RegisterRecipe() {
     });
   }
 
-  const description = watch("description") || "";
-
+  const description =
+    useWatch({
+      control,
+      name: "description",
+    }) ?? "";
   const onSubmit = async (data: CreateRecipeFormData) => {
     await createRecipe(data);
   };
@@ -170,25 +170,35 @@ export default function RegisterRecipe() {
                   <Controller
                     control={control}
                     name="categoryId"
-                    render={({ field }) => (
-                      <Combobox value={field.value} onValueChange={field.onChange}>
-                        <ComboboxInput placeholder="Selecione uma categoria" />
+                    render={({ field }) => {
+                      const selectedCategory = categories?.find(
+                        (category) => category.id === field.value
+                      );
 
-                        <ComboboxContent>
-                          {categories?.length === 0 && (
-                            <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
-                          )}
+                      return (
+                        <Combobox value={field.value} onValueChange={field.onChange}>
+                          <ComboboxInput
+                            placeholder="Selecione uma categoria"
+                            value={selectedCategory?.name ?? ""}
+                            readOnly
+                          />
 
-                          <ComboboxList>
-                            {categories?.map((category) => (
-                              <ComboboxItem key={category.id} value={category.name}>
-                                {category.name}
-                              </ComboboxItem>
-                            ))}
-                          </ComboboxList>
-                        </ComboboxContent>
-                      </Combobox>
-                    )}
+                          <ComboboxContent>
+                            {!categories || categories.length === 0 ? (
+                              <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                            ) : (
+                              <ComboboxList>
+                                {categories.map((category) => (
+                                  <ComboboxItem key={category.id} value={category.id}>
+                                    {category.name}
+                                  </ComboboxItem>
+                                ))}
+                              </ComboboxList>
+                            )}
+                          </ComboboxContent>
+                        </Combobox>
+                      );
+                    }}
                   />
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
