@@ -13,5 +13,5 @@ export async function editRecipe(data: EditRecipeRequest) {
     data,
   });
 
-  return result.data;
+  return result.data.data;
 }

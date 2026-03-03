@@ -8,7 +8,7 @@ export type RecipeDetails = {
     categoryId: string;
   };
 
-  ingredients: {
+  recipeIngredients: {
     id: string;
     ingredient: string;
     amount: string;
@@ -16,7 +16,7 @@ export type RecipeDetails = {
     recipeId: string;
   }[];
 
-  steps: {
+  recipeSteps: {
     id: string;
     step: number;
     description: string;

@@ -5,5 +5,6 @@ export async function getRecipeDetailsByRecipeId(recipeId: string): Promise<Reci
   const result = await api(`/recipes/details/${recipeId}`, {
     method: "GET",
   });
-  return result.data.data;
+  console.log(result.data.data);
+  return result.data;
 }

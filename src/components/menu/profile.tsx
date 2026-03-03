@@ -17,7 +17,7 @@ import Link from "next/link";
 
 export function NavUser() {
   const { user } = useMe();
-  const { logout, loading } = useLogout();
+  const { logout, isLoading } = useLogout();
   const { isMobile } = useSidebar();
 
   if (!user) {
@@ -66,9 +66,9 @@ export function NavUser() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} disabled={loading}>
+              <DropdownMenuItem onClick={handleLogout} disabled={isLoading}>
                 <LogOut />
-                {loading ? "Saindo..." : "Sair"}
+                {isLoading ? "Saindo..." : "Sair"}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>

@@ -21,7 +21,7 @@ export function useCreateIngredient(recipeId: string) {
   });
   return {
     createIngredient: mutation.mutateAsync,
-    loadingCreate: mutation.isPending,
+    isCreating: mutation.isPending,
     error: mutation.isError,
   };
 }

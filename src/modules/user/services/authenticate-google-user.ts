@@ -9,5 +9,5 @@ export async function authenticateGoogleUser(data: AuthenticateGoogleUserRequest
     method: "POST",
     data,
   });
-  return result.data;
+  return result.data.data;
 }

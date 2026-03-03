@@ -12,5 +12,5 @@ export async function createUser(data: createUserRequest) {
     data,
   });
 
-  return result.data;
+  return result.data.data;
 }

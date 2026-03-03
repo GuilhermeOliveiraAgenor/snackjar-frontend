@@ -21,7 +21,7 @@ export function useCreateUser() {
   });
   return {
     create: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isLoading: mutation.isPending,
     error: mutation.error,
   };
 }

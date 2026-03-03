@@ -1,11 +1,12 @@
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authenticateUser } from "../services/authenticate-user";
 import { toast } from "sonner";
 import { ApiError } from "next/dist/server/api-utils";
 import { AxiosError } from "axios";
 
 export function useLogin() {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const mutation = useMutation({
@@ -13,6 +14,7 @@ export function useLogin() {
     mutationFn: authenticateUser, // service
 
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["me"] });
       router.push("/menu");
     },
 
@@ -22,7 +24,7 @@ export function useLogin() {
   });
   return {
     login: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isLoading: mutation.isPending,
     error: mutation.error,
   };
 }

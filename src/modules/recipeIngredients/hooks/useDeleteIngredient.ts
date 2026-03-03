@@ -21,7 +21,7 @@ export function useDeleteIngredient(recipeId: string) {
   });
   return {
     deleteIngredient: mutation.mutateAsync,
-    loadingDelete: mutation.isPending,
+    isDeleting: mutation.isPending,
     error: mutation.isError,
   };
 }

@@ -23,6 +23,6 @@ export function useLogout() {
   });
   return {
     logout: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isLoading: mutation.isPending,
   };
 }

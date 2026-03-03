@@ -54,7 +54,7 @@ export default function RecipeDetails() {
 
           <CardContent className="px-8 pb-20">
             <ul className="list-disc pl-6 space-y-4 text-base sm:text-xl leading-relaxed">
-              {data.ingredients.map((ingredient) => (
+              {data.recipeIngredients.map((ingredient) => (
                 <li key={ingredient.id} className="group">
                   <div className="flex items-start gap-4">
                     <span className="flex-1 min-w-0 break-all">
@@ -86,7 +86,7 @@ export default function RecipeDetails() {
 
           <CardContent className="px-6 sm:px-8 pb-20">
             <ul className="space-y-4 text-base sm:text-xl leading-relaxed">
-              {data.steps.map((step) => (
+              {data.recipeSteps.map((step) => (
                 <li key={step.id} className="group">
                   <div className="flex items-start gap-4">
                     <span className="flex-1 min-w-0 nom run-all">

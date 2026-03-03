@@ -72,7 +72,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
     }
   }, [step, open, reset]);
 
-  const { createStep, loadingCreate } = useCreateStep(recipeId);
+  const { createStep, isCreating } = useCreateStep(recipeId);
   const { editStep } = useEditStep(recipeId);
   const { deleteStep } = useDeleteStep(recipeId);
 
@@ -117,7 +117,9 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
 
       <SheetContent className="flex flex-col w-full sm:max-w-xl">
         <SheetHeader className="items-center mt-6">
-          <SheetTitle className="text-xl text-center">Editar Etapa</SheetTitle>
+          <SheetTitle className="text-xl text-center">
+            {isEdit ? "Editar Etapa" : "Adicionar Etapa"}
+          </SheetTitle>
         </SheetHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-14">
@@ -149,8 +151,8 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit" disabled={loadingCreate}>
-              {loadingCreate ? "Salvando" : "Salvar"}
+            <Button type="submit" disabled={isCreating}>
+              {isCreating ? "Salvando" : "Salvar"}
             </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>

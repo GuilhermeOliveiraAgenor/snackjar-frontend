@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function SignUpForm() {
-  const { create, loading } = useCreateUser();
+  const { create, isLoading } = useCreateUser();
 
   const {
     register,
@@ -90,8 +90,8 @@ export default function SignUpForm() {
             )}
           </Field>
 
-          <Button type="submit" className="w-full h-12 text-base" disabled={loading}>
-            {loading ? "Cadastrando" : "Cadastrar"}
+          <Button type="submit" className="w-full h-12 text-base" disabled={isLoading}>
+            {isLoading ? "Cadastrando" : "Cadastrar"}
           </Button>
 
           <Button variant="outline" type="button" className="w-full h-12 text-base">

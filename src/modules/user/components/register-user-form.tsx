@@ -20,7 +20,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useRef } from "react";
 
 export default function LoginForm() {
-  const { login, loading } = useLogin(); // hook
+  const { login, isLoading } = useLogin(); // hook
   const { loginWithGoogle } = useGoogleLogin();
   const googleButtonRef = useRef<HTMLDivElement>(null);
 
@@ -66,8 +66,8 @@ export default function LoginForm() {
           />
           {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </Field>
-        <Button type="submit" disabled={loading}>
-          {loading ? "Entrando..." : "Login"}
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "Entrando..." : "Login"}
         </Button>
         <FieldSeparator>Ou continue por aqui</FieldSeparator>
         <Field>

@@ -83,7 +83,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     }
   }, [ingredient, open, reset]);
 
-  const { createIngredient, loadingCreate } = useCreateIngredient(recipeId);
+  const { createIngredient, isCreating } = useCreateIngredient(recipeId);
   const { editIngredient } = useEditIngredient(recipeId);
   const { deleteIngredient } = useDeleteIngredient(recipeId);
 
@@ -195,8 +195,8 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit" disabled={loadingCreate}>
-              {loadingCreate ? "Salvando" : "Salvar"}
+            <Button type="submit" disabled={isCreating}>
+              {isCreating ? "Salvando" : "Salvar"}
             </Button>
 
             {mode !== "create" && (

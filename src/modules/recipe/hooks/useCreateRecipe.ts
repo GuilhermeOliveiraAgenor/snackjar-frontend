@@ -23,7 +23,7 @@ export function useCreateRecipe() {
   });
   return {
     createRecipe: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isCreating: mutation.isPending,
     error: mutation.isError,
   };
 }

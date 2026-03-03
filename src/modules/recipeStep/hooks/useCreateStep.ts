@@ -19,7 +19,7 @@ export function useCreateStep(recipeId: string) {
   });
   return {
     createStep: mutation.mutateAsync,
-    loadingCreate: mutation.isPending,
+    isCreating: mutation.isPending,
     error: mutation.isError,
   };
 }

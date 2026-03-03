@@ -21,7 +21,7 @@ export function useEditRecipe(recipeId: string) {
   });
   return {
     editRecipe: mutation.mutateAsync,
-    loadingEdit: mutation.isPending,
+    isEditing: mutation.isPending,
     error: mutation.isError,
   };
 }

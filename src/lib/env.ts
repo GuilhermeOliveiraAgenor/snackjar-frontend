@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url(),
-
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string(),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 
