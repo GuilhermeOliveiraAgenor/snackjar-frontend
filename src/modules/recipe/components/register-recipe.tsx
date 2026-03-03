@@ -167,51 +167,29 @@ export default function RegisterRecipe() {
                       <span className="text-sm text-red-500">{errors.preparationTime.message}</span>
                     )}
                   </Field>
+                  <Controller
+                    control={control}
+                    name="categoryId"
+                    render={({ field }) => (
+                      <Combobox value={field.value} onValueChange={field.onChange}>
+                        <ComboboxInput placeholder="Selecione uma categoria" />
 
-                  <Field>
-                    <FieldLabel>Categoria</FieldLabel>
-                    <Controller
-                      control={control}
-                      name="categoryId"
-                      render={({ field, fieldState }) => {
-                        const selectedCategory = categories?.find((c) => c.id === field.value);
-                        return (
-                          <>
-                            <Combobox value={field.value} onValueChange={field.onChange}>
-                              <ComboboxInput
-                                placeholder="Selecione a categoria"
-                                value={selectedCategory?.name || ""}
-                                readOnly
-                                className={fieldState.error ? "border-red-500" : ""}
-                              />
+                        <ComboboxContent>
+                          {categories?.length === 0 && (
+                            <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                          )}
 
-                              <ComboboxContent>
-                                {categories?.length === 0 && (
-                                  <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
-                                )}
-
-                                <ComboboxList>
-                                  {categories?.map((category) => (
-                                    <ComboboxItem key={category.id} value={category.id}>
-                                      {category.name}
-                                    </ComboboxItem>
-                                  ))}
-                                </ComboboxList>
-                              </ComboboxContent>
-                            </Combobox>
-
-                            {fieldState.error && (
-                              <p className="text-red-500 text-sm mt-1">
-                                {fieldState.error.message}
-                              </p>
-                            )}
-                          </>
-                        );
-                      }}
-                    />
-
-                    <FieldSeparator />
-                  </Field>
+                          <ComboboxList>
+                            {categories?.map((category) => (
+                              <ComboboxItem key={category.id} value={category.name}>
+                                {category.name}
+                              </ComboboxItem>
+                            ))}
+                          </ComboboxList>
+                        </ComboboxContent>
+                      </Combobox>
+                    )}
+                  />
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
