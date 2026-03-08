@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useRecipeDetails } from "../hooks/useRecipeDetails";
 import { formatMeasurementUnit } from "@/lib/formatMeasurementUnitLabels";
 import { RecipeSheet } from "./recipe-sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -15,7 +16,43 @@ export default function RecipeDetails() {
   const { data, isLoading } = useRecipeDetails(recipeId);
 
   if (isLoading) {
-    return <p className="p-8">Carregando receita...</p>;
+    return (
+      <div className="min-h-screen flex flex-col items-center gap-10 pt-2 pb-8 px-4 sm:px-8">
+        <Card className="w-full max-w-5xl shadow-lg">
+          <CardHeader className="space-y-3">
+            <Skeleton className="h-8 w-64 mx-auto" />
+            <Skeleton className="h-4 w-40 mx-auto" />
+            <Skeleton className="h-4 w-80 mx-auto" />
+          </CardHeader>
+        </Card>
+
+        <div className="w-full max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
+          <Card className="shadow-lg">
+            <CardHeader>
+              <Skeleton className="h-6 w-32" />
+            </CardHeader>
+
+            <CardContent className="space-y-3">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <Skeleton className="h-6 w-40" />
+            </CardHeader>
+
+            <CardContent className="space-y-3">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
   }
 
   if (!data) {
