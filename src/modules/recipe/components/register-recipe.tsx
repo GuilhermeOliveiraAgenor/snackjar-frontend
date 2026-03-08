@@ -29,14 +29,14 @@ import {
   createRecipeSchema,
 } from "../schemas/create-recipe-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useCreateRecipe } from "../hooks/useCreateRecipe";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { useCategories } from "@/modules/category/hooks/useCategories";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function RegisterRecipe() {
-  const { createRecipe } = useCreateRecipe();
+  const { createRecipe, isCreating } = useCreateRecipe();
   const { categories } = useCategories();
 
   const {
@@ -44,7 +44,6 @@ export default function RegisterRecipe() {
     control,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<CreateRecipeFormInput, unknown, CreateRecipeFormData>({
     resolver: zodResolver(createRecipeSchema),
@@ -89,9 +88,7 @@ export default function RegisterRecipe() {
   }
 
   function addSteps() {
-    const currentSteps = watch("recipeStep") as CreateRecipeFormData["recipeStep"];
-
-    const nextStep = currentSteps.length > 0 ? currentSteps[currentSteps.length - 1].step + 1 : 1;
+    const nextStep = stepFields.length > 0 ? Number(stepFields[stepFields.length - 1].step) + 1 : 1;
 
     appendStep({
       step: nextStep,
@@ -99,20 +96,23 @@ export default function RegisterRecipe() {
     });
   }
 
-  const description = watch("description") || "";
-
+  const description =
+    useWatch({
+      control,
+      name: "description",
+    }) ?? "";
   const onSubmit = async (data: CreateRecipeFormData) => {
     await createRecipe(data);
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 p-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 px-2 py-4 sm:p-4">
       <SidebarTrigger className="absolute top-8 left-6 sm:top-4 sm:left-4" />
-      <Card className="w-full max-w-2xl shadow-lg px-8">
+      <Card className="w-full max-w-2xl shadow-lg px-3 sm:px-8">
+        {" "}
         <CardHeader>
           <CardTitle className="text-center text-2xl">Cadastrar Receita</CardTitle>
         </CardHeader>
-
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FieldGroup>
@@ -155,7 +155,7 @@ export default function RegisterRecipe() {
                     <div className="flex items-center gap-2">
                       <Input
                         type="text"
-                        className="w-32"
+                        className="w-18"
                         placeholder="60"
                         inputMode="numeric"
                         maxLength={4}
@@ -167,57 +167,44 @@ export default function RegisterRecipe() {
                       <span className="text-sm text-red-500">{errors.preparationTime.message}</span>
                     )}
                   </Field>
+                  <Controller
+                    control={control}
+                    name="categoryId"
+                    render={({ field }) => {
+                      const selectedCategory = categories?.find(
+                        (category) => category.id === field.value
+                      );
 
-                  <Field>
-                    <FieldLabel>Categoria</FieldLabel>
-                    <Controller
-                      control={control}
-                      name="categoryId"
-                      render={({ field, fieldState }) => {
-                        const selectedCategory = categories?.find((c) => c.id === field.value);
+                      return (
+                        <Combobox value={field.value} onValueChange={field.onChange}>
+                          <ComboboxInput
+                            placeholder="Selecione uma categoria"
+                            value={selectedCategory?.name ?? ""}
+                            readOnly
+                          />
 
-                        return (
-                          <>
-                            <Combobox value={field.value} onValueChange={field.onChange}>
-                              <ComboboxInput
-                                placeholder="Selecione a categoria"
-                                value={selectedCategory?.name || ""}
-                                readOnly
-                                className={fieldState.error ? "border-red-500" : ""}
-                              />
-
-                              <ComboboxContent>
-                                {categories?.length === 0 && (
-                                  <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
-                                )}
-
-                                <ComboboxList>
-                                  {categories?.map((category) => (
-                                    <ComboboxItem key={category.id} value={category.id}>
-                                      {category.name}
-                                    </ComboboxItem>
-                                  ))}
-                                </ComboboxList>
-                              </ComboboxContent>
-                            </Combobox>
-
-                            {fieldState.error && (
-                              <p className="text-red-500 text-sm mt-1">
-                                {fieldState.error.message}
-                              </p>
+                          <ComboboxContent>
+                            {!categories || categories.length === 0 ? (
+                              <ComboboxEmpty>Itens não encontrados</ComboboxEmpty>
+                            ) : (
+                              <ComboboxList>
+                                {categories.map((category) => (
+                                  <ComboboxItem key={category.id} value={category.id}>
+                                    {category.name}
+                                  </ComboboxItem>
+                                ))}
+                              </ComboboxList>
                             )}
-                          </>
-                        );
-                      }}
-                    />
-
-                    <FieldSeparator />
-                  </Field>
+                          </ComboboxContent>
+                        </Combobox>
+                      );
+                    }}
+                  />
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
-                      <div className="flex-3">Nome</div>
-                      <div className="w-16 sm:w-20 text-center">Qtd</div>
+                      <div className="flex-1">Nome</div>
+                      <div className="w-14 sm:w-20 flex justify-center">Qtd</div>
                       <div className="w-20 sm:w-24 text-center">Unidade</div>
                     </div>
                     <div className="space-y-2">
@@ -228,7 +215,7 @@ export default function RegisterRecipe() {
                             maxLength={50}
                             placeholder="Farinha"
                             {...register(`recipeIngredient.${index}.ingredient`)}
-                            className="flex-3"
+                            className="flex-1"
                           />
                           <Input
                             type="text"
@@ -239,7 +226,7 @@ export default function RegisterRecipe() {
                               const input = e.currentTarget;
                               input.value = input.value.replace(/\D/g, "").slice(0, 4);
                             }}
-                            className="w-16 sm:w-20 text-center"
+                            className="w-14 sm:w-20 text-center"
                           />
 
                           <Select
@@ -248,7 +235,7 @@ export default function RegisterRecipe() {
                             }
                             defaultValue={field.unit}
                           >
-                            <SelectTrigger className="w-20 sm:w-24">
+                            <SelectTrigger className="w-16 sm:w-28">
                               <SelectValue />
                             </SelectTrigger>
 
@@ -346,8 +333,8 @@ export default function RegisterRecipe() {
                     </div>
                   </Field>
                   <Field orientation="horizontal" className="flex flex-1 justify-center py-4">
-                    <Button type="submit" className="w-32">
-                      Salvar
+                    <Button type="submit" className="w-32" disabled={isCreating}>
+                      {isCreating ? "Salvando" : "Salvar"}
                     </Button>
                     <Button variant="outline" type="button">
                       Cancelar

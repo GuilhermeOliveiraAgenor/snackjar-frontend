@@ -20,7 +20,7 @@ export function useDeleteFavoriteRecipe() {
   });
   return {
     deleteFavoriteRecipe: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isDeleting: mutation.isPending,
     error: mutation.isError,
   };
 }

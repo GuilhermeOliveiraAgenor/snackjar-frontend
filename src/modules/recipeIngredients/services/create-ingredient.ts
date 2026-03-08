@@ -14,5 +14,5 @@ export async function createIngredient(data: CreateIngredientRequest) {
     data,
   });
 
-  return result.data;
+  return result.data.data;
 }

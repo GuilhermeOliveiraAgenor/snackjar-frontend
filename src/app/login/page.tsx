@@ -5,7 +5,6 @@ import Image from "next/image";
 export default function Login() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
-      {/*coluna 1*/}
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium text-2xl">
@@ -21,13 +20,13 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {/*coluna 2*/}
       <div className="bg-muted relative hidden lg:block">
         <Image
           src="/Chef-pana.svg"
           alt="Receitas"
           width={100}
           height={100}
+          priority
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>

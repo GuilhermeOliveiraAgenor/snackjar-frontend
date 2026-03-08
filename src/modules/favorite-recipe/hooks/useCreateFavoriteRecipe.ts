@@ -20,7 +20,7 @@ export function useCreateFavoriteRecipe() {
   });
   return {
     createFavoriteRecipe: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isCreating: mutation.isPending,
     error: mutation.isError,
   };
 }

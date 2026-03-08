@@ -11,5 +11,5 @@ export async function authenticateUser(data: AuthenticateUserRequest) {
     data,
   });
 
-  return result;
+  return result.data.data;
 }

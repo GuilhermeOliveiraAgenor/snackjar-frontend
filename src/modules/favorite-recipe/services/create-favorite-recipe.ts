@@ -6,5 +6,5 @@ export async function createFavoriteRecipe(recipeId: string) {
     data: { recipeId },
   });
 
-  return result.data;
+  return result.data.data;
 }

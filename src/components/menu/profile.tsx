@@ -1,7 +1,7 @@
 "use client";
 
 import { useMe } from "@/modules/user/hooks/useMe";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,10 +13,11 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { CircleUserRound, LogOut, Settings } from "lucide-react";
 import { useLogout } from "@/modules/user/hooks/useLogout";
+import Link from "next/link";
 
 export function NavUser() {
   const { user } = useMe();
-  const { logout, loading } = useLogout();
+  const { logout, isLoading } = useLogout();
   const { isMobile } = useSidebar();
 
   if (!user) {
@@ -37,8 +38,12 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage
+                  src={user?.avatarUrl ?? "/profile.png"}
+                  alt="profile"
+                  width={75}
+                  height={75}
+                ></AvatarImage>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -54,14 +59,16 @@ export function NavUser() {
             sideOffset={16}
           >
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <CircleUserRound />
-                Conta
+              <DropdownMenuItem asChild>
+                <Link href="/me/profile" className="flex items-center gap-2">
+                  <CircleUserRound className="w-4 h-4" />
+                  Conta
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} disabled={loading}>
+              <DropdownMenuItem onClick={handleLogout} disabled={isLoading}>
                 <LogOut />
-                {loading ? "Saindo..." : "Sair"}
+                {isLoading ? "Saindo..." : "Sair"}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>

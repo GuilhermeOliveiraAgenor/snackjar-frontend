@@ -19,14 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateIngredient } from "../hooks/useCreateIngredient";
 import {
   CreateIngredientFormData,
-  CreateIngredientFormInput,
   createIngredientSchema,
 } from "../schemas/create-ingredient-schema";
-import {
-  EditIngredientFormData,
-  EditIngredientFormInput,
-  editIngredientSchema,
-} from "../schemas/edit-ingredient-schema";
+import { EditIngredientFormData, editIngredientSchema } from "../schemas/edit-ingredient-schema";
 import { useParams } from "next/navigation";
 import { MeasurementUnit } from "@/lib/enum/MeasurementUnit";
 import { measurementUnitLabels } from "@/lib/measurementUnitLabels";
@@ -54,7 +49,6 @@ type IngredientSheetProps = {
   mode?: "create" | "edit";
 };
 
-type FormInput = CreateIngredientFormInput | EditIngredientFormInput;
 type FormData = CreateIngredientFormData | EditIngredientFormData;
 export function IngredientSheet({ children, ingredient, mode }: IngredientSheetProps) {
   const params = useParams();
@@ -63,21 +57,20 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
   const [open, setOpen] = useState(false);
 
   const isEdit = mode === "edit";
-
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm<FormInput, unknown, FormData>({
+  } = useForm<FormData>({
     resolver: zodResolver(isEdit ? editIngredientSchema : createIngredientSchema),
     defaultValues: {
       ingredient: "",
       amount: "",
       unit: undefined,
       id: "",
-    } as FormInput,
+    },
   });
   useEffect(() => {
     if (ingredient && open) {
@@ -90,7 +83,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
     }
   }, [ingredient, open, reset]);
 
-  const { createIngredient } = useCreateIngredient(recipeId);
+  const { createIngredient, isCreating } = useCreateIngredient(recipeId);
   const { editIngredient } = useEditIngredient(recipeId);
   const { deleteIngredient } = useDeleteIngredient(recipeId);
 
@@ -139,7 +132,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </SheetTitle>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-14">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-8">
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="ingredient">Ingrediente</Label>
@@ -202,12 +195,22 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit">Salvar</Button>
+            <Button
+              type="submit"
+              className="text-sm bg-black hover:bg-black  text-white"
+              disabled={isCreating}
+            >
+              {isCreating ? "Salvando" : "Salvar"}
+            </Button>
 
             {mode !== "create" && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button type="button" variant="destructive">
+                  <Button
+                    type="button"
+                    className="bg-red-600 hover:bg-red-600"
+                    variant="destructive"
+                  >
                     Excluir
                   </Button>
                 </AlertDialogTrigger>

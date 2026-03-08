@@ -21,7 +21,7 @@ export function useDeleteRecipe() {
   });
   return {
     deleteRecipe: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isDeleting: mutation.isPending,
     error: mutation.isError,
   };
 }

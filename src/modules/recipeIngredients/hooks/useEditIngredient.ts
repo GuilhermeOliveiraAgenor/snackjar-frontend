@@ -20,7 +20,7 @@ export function useEditIngredient(recipeId: string) {
   });
   return {
     editIngredient: mutation.mutateAsync,
-    loading: mutation.isPending,
+    isEditing: mutation.isPending,
     error: mutation.isError,
   };
 }

@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { useCreateFavoriteRecipe } from "./useCreateFavoriteRecipe";
 import { useDeleteFavoriteRecipe } from "./useDeleteFavoriteRecipe";
 
@@ -18,12 +19,14 @@ export function useToggleFavorite() {
       } else {
         await createMutation.createFavoriteRecipe(recipeId);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Erro ao atualizar favorito";
+
+      toast.error(message);
     }
   }
   return {
     toggle,
-    isLoading: createMutation.loading || deleteMutation.loading,
+    isLoading: createMutation.isCreating || deleteMutation.isDeleting,
   };
 }
