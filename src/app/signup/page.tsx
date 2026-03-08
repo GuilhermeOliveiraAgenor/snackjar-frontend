@@ -84,7 +84,6 @@ export default function SignUpForm() {
               {...register("confirmPassword")}
             />
 
-            {/* ERRO DO ZOD */}
             {errors.confirmPassword && (
               <span className="text-sm text-red-500">{errors.confirmPassword.message}</span>
             )}
