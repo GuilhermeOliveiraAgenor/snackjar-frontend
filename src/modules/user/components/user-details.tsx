@@ -11,7 +11,7 @@ export default function UserDetails() {
   const { user } = useMe();
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 p-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 p-4 pb-32">
       <Card className="w-full max-w-2xl shadow-lg px-8">
         <CardHeader>
           <CardTitle className="text-center text-2xl">Meu Perfil</CardTitle>

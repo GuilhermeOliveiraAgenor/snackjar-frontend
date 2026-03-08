@@ -23,7 +23,7 @@ export default function RecipeDetails() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center gap-10 p-4 sm:p-8">
+    <div className="min-h-screen flex flex-col items-center gap-10 pt-2 pb-8 px-4 sm:px-8">
       <Card className="w-full max-w-5xl text-center shadow-lg">
         <CardHeader className="relative pt-6 pb-8 px-4 sm:px-8">
           <div className="absolute top-2 right-3 sm:top-4 sm:right-4">
@@ -34,7 +34,7 @@ export default function RecipeDetails() {
             </RecipeSheet>
           </div>
 
-          <CardTitle className="text-2xl sm:text-4xl font-bold break-all">
+          <CardTitle className="text-2xl sm:text-3xl font-bold break-all">
             {data.recipe.title}
           </CardTitle>
 
@@ -48,12 +48,12 @@ export default function RecipeDetails() {
 
       <div className="w-full max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-start">
         <Card className="relative shadow-lg">
-          <CardHeader className="px-6 sm:px-8 pt-8">
-            <CardTitle className="text-2xl sm:text-3xl">Ingredientes</CardTitle>
+          <CardHeader className="px-6 sm:px-8 pt-2">
+            <CardTitle className="text-lg sm:text-xl font-semibold">Ingredientes</CardTitle>{" "}
           </CardHeader>
 
-          <CardContent className="px-8 pb-20">
-            <ul className="list-disc pl-6 space-y-4 text-base sm:text-xl leading-relaxed">
+          <CardContent className="px-8 pb-10">
+            <ul className="list-disc pl-6 space-y-3 text-base leading-relaxed">
               {data.recipeIngredients.map((ingredient) => (
                 <li key={ingredient.id} className="group">
                   <div className="flex items-start gap-4">
@@ -80,12 +80,12 @@ export default function RecipeDetails() {
         </Card>
 
         <Card className="relative shadow-lg">
-          <CardHeader className="px-6 sm:px-8 pt-8">
-            <CardTitle className="text-2xl sm:text-3xl">Modo de preparo</CardTitle>
+          <CardHeader className="px-6 sm:px-8 pt-2">
+            <CardTitle className="text-lg sm:text-xl font-semibold">Modo de preparo</CardTitle>
           </CardHeader>
 
-          <CardContent className="px-6 sm:px-8 pb-20">
-            <ul className="space-y-4 text-base sm:text-xl leading-relaxed">
+          <CardContent className="px-6 sm:px-8 pb-10">
+            <ul className="list-disc pl-6 space-y-3 text-base leading-relaxed">
               {data.recipeSteps.map((step) => (
                 <li key={step.id} className="group">
                   <div className="flex items-start gap-4">

@@ -108,8 +108,8 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
           <SheetTitle className="text-xl text-center">Editar Receita</SheetTitle>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-14">
-          <div className="grid gap-16 px-5 py-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1">
+          <div className="grid gap-12 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="Titulo">Titulo</Label>
               <Input
@@ -153,14 +153,18 @@ export function RecipeSheet({ children, recipe }: RecipeSheetProps) {
             </div>
           </div>
 
-          <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit" disabled={isEditing}>
+          <div className="px-4 pb-6 flex flex-col gap-3 mt-8">
+            <Button
+              type="submit"
+              disabled={isEditing}
+              className="text-sm bg-black hover:bg-black   text-white"
+            >
               {isEditing ? "Salvando" : "Salvar"}
             </Button>
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button type="button" variant="destructive">
+                <Button type="button" variant="destructive" className="bg-red-600 hover:bg-red-600">
                   Excluir
                 </Button>
               </AlertDialogTrigger>

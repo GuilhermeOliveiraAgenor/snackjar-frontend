@@ -106,13 +106,13 @@ export default function RegisterRecipe() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 p-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-muted/40 px-2 py-4 sm:p-4">
       <SidebarTrigger className="absolute top-8 left-6 sm:top-4 sm:left-4" />
-      <Card className="w-full max-w-2xl shadow-lg px-8">
+      <Card className="w-full max-w-2xl shadow-lg px-3 sm:px-8">
+        {" "}
         <CardHeader>
           <CardTitle className="text-center text-2xl">Cadastrar Receita</CardTitle>
         </CardHeader>
-
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FieldGroup>
@@ -155,7 +155,7 @@ export default function RegisterRecipe() {
                     <div className="flex items-center gap-2">
                       <Input
                         type="text"
-                        className="w-32"
+                        className="w-18"
                         placeholder="60"
                         inputMode="numeric"
                         maxLength={4}
@@ -203,8 +203,8 @@ export default function RegisterRecipe() {
                   <Field>
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
-                      <div className="flex-3">Nome</div>
-                      <div className="w-16 sm:w-20 text-center">Qtd</div>
+                      <div className="flex-1">Nome</div>
+                      <div className="w-14 sm:w-20 flex justify-center">Qtd</div>
                       <div className="w-20 sm:w-24 text-center">Unidade</div>
                     </div>
                     <div className="space-y-2">
@@ -215,7 +215,7 @@ export default function RegisterRecipe() {
                             maxLength={50}
                             placeholder="Farinha"
                             {...register(`recipeIngredient.${index}.ingredient`)}
-                            className="flex-3"
+                            className="flex-1"
                           />
                           <Input
                             type="text"
@@ -226,7 +226,7 @@ export default function RegisterRecipe() {
                               const input = e.currentTarget;
                               input.value = input.value.replace(/\D/g, "").slice(0, 4);
                             }}
-                            className="w-16 sm:w-20 text-center"
+                            className="w-14 sm:w-20 text-center"
                           />
 
                           <Select
@@ -235,7 +235,7 @@ export default function RegisterRecipe() {
                             }
                             defaultValue={field.unit}
                           >
-                            <SelectTrigger className="w-20 sm:w-24">
+                            <SelectTrigger className="w-16 sm:w-28">
                               <SelectValue />
                             </SelectTrigger>
 

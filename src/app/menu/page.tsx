@@ -61,7 +61,14 @@ export default function Page() {
         <header className="relative flex h-16 shrink-0 items-center px-4 sm:px-6 sm:mb-2">
           <SidebarTrigger className="absolute left-4 sm:left-6" />
           <div className="flex-1 flex justify-center items-center text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-primary">
-            <Link href="/menu" className="hover:opacity-80 transition">
+            <Link
+              href="/menu"
+              className="hover:opacity-80 transition"
+              onClick={() => {
+                setTitle("");
+                setPage(1);
+              }}
+            >
               <h1>SNACK JAR</h1>
             </Link>
           </div>

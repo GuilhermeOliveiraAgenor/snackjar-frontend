@@ -57,7 +57,7 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
   } = useForm<FormInput, unknown, FormData>({
     resolver: zodResolver(isEdit ? editStepSchema : createStepSchema),
     defaultValues: {
-      step: 1,
+      step: undefined,
       description: "",
     } as FormInput,
   });
@@ -129,7 +129,9 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
               <Input
                 id="step"
                 maxLength={4}
-                {...register("step", { valueAsNumber: true })}
+                {...register("step", {
+                  setValueAs: (v) => (v === "" ? undefined : Number(v)),
+                })}
                 placeholder="1"
                 className="w-14"
               />
@@ -151,28 +153,40 @@ export function StepSheet({ children, step, mode }: StepSheetProps) {
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit" disabled={isCreating}>
+            <Button
+              type="submit"
+              className="text-sm bg-black hover:bg-black  text-white"
+              disabled={isCreating}
+            >
               {isCreating ? "Salvando" : "Salvar"}
             </Button>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button type="button" variant="destructive">
-                  Excluir
-                </Button>
-              </AlertDialogTrigger>
+            {mode !== "create" && (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    type="button"
+                    className="bg-red-600 hover:bg-red-600"
+                    variant="destructive"
+                  >
+                    Excluir
+                  </Button>
+                </AlertDialogTrigger>
 
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                  <AlertDialogDescription>A etapa será deletada da receita</AlertDialogDescription>
-                </AlertDialogHeader>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      A etapa será deletada da receita
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
 
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
           </div>
         </form>
       </SheetContent>

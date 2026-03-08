@@ -71,7 +71,7 @@ export function CardSmall({
           </CardDescription>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="break-all">
         <p>{description}</p>
       </CardContent>
       <CardFooter>

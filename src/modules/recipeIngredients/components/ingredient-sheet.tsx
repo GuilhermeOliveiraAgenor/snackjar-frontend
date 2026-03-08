@@ -132,7 +132,7 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </SheetTitle>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-14">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 mt-8">
           <div className="grid gap-16 px-5 py-6">
             <div className="grid gap-4">
               <Label htmlFor="ingredient">Ingrediente</Label>
@@ -195,14 +195,22 @@ export function IngredientSheet({ children, ingredient, mode }: IngredientSheetP
           </div>
 
           <div className="px-4 pb-6 flex flex-col gap-3 mt-16">
-            <Button type="submit" disabled={isCreating}>
+            <Button
+              type="submit"
+              className="text-sm bg-black hover:bg-black  text-white"
+              disabled={isCreating}
+            >
               {isCreating ? "Salvando" : "Salvar"}
             </Button>
 
             {mode !== "create" && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button type="button" variant="destructive">
+                  <Button
+                    type="button"
+                    className="bg-red-600 hover:bg-red-600"
+                    variant="destructive"
+                  >
                     Excluir
                   </Button>
                 </AlertDialogTrigger>

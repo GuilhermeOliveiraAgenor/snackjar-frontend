@@ -28,11 +28,11 @@ export default function SignUpForm() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-xl bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-8"
+        className="w-full max-w-xl bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-6"
       >
-        <FieldGroup className="flex flex-col gap-6">
+        <FieldGroup className="flex flex-col gap-4">
           <div className="flex flex-col items-center gap-2 text-center">
-            <h1 className="text-3xl font-bold">Faça parte do SnackJar</h1>
+            <h1 className="text-2xl sm:text-2xl md:text-3xl font-bold">Faça parte do SnackJar</h1>
             <p className="text-muted-foreground text-md text-balance">Digite seus dados</p>
           </div>
 
