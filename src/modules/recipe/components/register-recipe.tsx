@@ -204,8 +204,8 @@ export default function RegisterRecipe() {
                     <FieldLabel>Ingredientes</FieldLabel>
                     <div className="flex items-center gap-2 mt-5 w-full text-sm text-muted-foreground mb-1">
                       <div className="flex-1">Nome</div>
-                      <div className="w-14 sm:w-20 flex justify-center">Qtd</div>
-                      <div className="w-20 sm:w-24 text-center">Unidade</div>
+                      <div className="w-14 sm:w-20 text-center">Qtd</div>
+                      <div className="w-16 sm:w-28 text-center">Unidade</div>
                     </div>
                     <div className="space-y-2">
                       {ingredientFields.map((field, index) => (
