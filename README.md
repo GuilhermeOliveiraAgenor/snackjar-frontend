@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧑‍🍳 Snack Jar
 
-## Getting Started
+Interface web da aplicação Snack Jar, responsável pela interação do usuário com o sistema de gerenciamento de receitas.
 
-First, run the development server:
+O frontend consome a API desenvolvida em Node.js + TypeScript, responsável pela autenticação, gerenciamento de receitas e persistência de dados.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 🔗 Backend API
+https://github.com/GuilhermeOliveiraAgenor/snackjar-backend
+
+
+## 📌 About
+
+**Snack Jar** é uma **aplicação web** que funciona como um **livro de receitas digital**, permitindo que usuários armazenem e organizem suas **receitas pessoais** de forma **segura**.
+
+A interface foi desenvolvida utilizando **Next.js** e **React**, priorizando **performance** e **escalabilidade**. O sistema oferece suporte para **autenticação tradicional** e **login social com Google**, além de funcionalidades completas para **gerenciamento de receitas**, **ingredientes** e **etapas de preparo**.
+
+A aplicação utiliza **React Query** para **gerenciamento de estado assíncrono** e **cache de dados da API**, **TailwindCSS** e **shadcn/ui** para construção da interface e **React Hook Form + Zod** para **validação de formulários**.
+
+## 📷 Interface
+
+Tela principal da aplicação onde o usuário pode visualizar, pesquisar e acessar suas receitas cadastradas.
+
+<p align="center">
+  <img src="./home.png" width="1000">
+</p>
+
+
+## 🚀 Features
+
+- Cadastro e autenticação de usuários
+- Login social com Google OAuth
+- Cadastro e gerenciamento de receitas
+- Sistema de favoritos
+- Pesquisa e filtro de receitas
+- Gerenciamento de ingredientes e etapas
+
+## 🛠️ Tech Stack
+
+- React
+- Next.js
+- TypeScript
+- TailwindCSS
+- shadcn/ui
+- React Query
+- Axios
+- Zod
+- React Hook Form
+- Google OAuth
+
+## 🏗️ Estrutura do projeto
+
+A estrutura do projeto é organizada em **módulos de funcionalidades** e **componentes reutilizáveis**, promovendo melhor organização do código e maior facilidade na evolução da aplicação.
+
+```text
+src
+├─ app
+├─ components
+├─ hooks
+├─ lib
+├─ modules
+│  └─ class
+│     ├─ components
+│     ├─ hooks
+│     ├─ schemas
+│     ├─ services
+│     └─ types
+└─ styles
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Descrição das principais pastas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- app → rotas e páginas da aplicação utilizando o App Router do Next.js
+- components → componentes reutilizáveis da interface
+- hooks → hooks globais da aplicação
+- lib → utilitários e configurações compartilhadas
+- modules → organização das funcionalidades do sistema
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ▶️ Run
 
-## Learn More
+### 1️⃣ Clone o repositório
+```
+git clone https://github.com/GuilhermeOliveiraAgenor/snackjar-frontend.git
+cd snackjar-frontend
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2️⃣ Instalar dependências
+```
+npm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3️⃣ Configurar variáveis de ambiente
+Utilize o `.env.example` como base para configurar o arquivo `.env`.
+```
+cp .env.example .env
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4️⃣ Iniciar aplicação
 
-## Deploy on Vercel
+```
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
